@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Roles',
+    'Usuarios',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +71,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+AUTH_USER_MODEL = 'Usuarios.Usuario'
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/accounts/login'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
