@@ -13,9 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 from django.urls import path
+from Roles.views import add_rol, RolesListView, RolUpdate, eliminar_rol
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name = 'admin'),
+    path('crear_rol/', login_required(add_rol), name='crearrol'),
+    path('listar_roles/', login_required(RolesListView.as_view()), name='listarroles'),
+    path('modificar_rol/<pk>/',login_required(RolUpdate.as_view()), name='modificarrol'),
+    path('eliminar_rol/<int:id_rol>/', login_required(eliminar_rol), name='eliminarrol'),
+
+    
 ]

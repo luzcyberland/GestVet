@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %}Modificar Rol{% endblock %}
+{% block h1 %}Modificar Rol{% endblock %}
+
+{% block content %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form|crispy }}
+  <br>
+  <button type="submit" class="btn btn-success">Actualizar rol</button>
+</form>
+{% endblock %}

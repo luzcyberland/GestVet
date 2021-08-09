@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Lista de Roles{% endblock %}
+{% block h1 %}Lista de Roles{% endblock %}
+    {% block table %}
+
+    <table class = "table">
+    <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre Rol</th>
+          <th scope="col">Estado</th>
+        </tr>
+    </thead>
+        {% if roles_list %}
+        {% for rol in roles_list %}
+      <tbody>
+        <tr>
+        <th scope="row">{{rol.id_rol}}</th>
+        <td> {{ rol.nombre_rol }} </td>
+        <td>{{rol.estado}}</td>
+        <td><a class="btn btn-success btn-sm " href="{% url 'modificarrol' rol.id_rol %}">Editar</a></td>
+        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminarrol' rol.id_rol %}">Eliminar</a></td>
+      </tr>
+        {% endfor %}
+      {% else %}
+        <p>No existen roles</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+
+    {% endblock %}
