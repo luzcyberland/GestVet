@@ -18,9 +18,7 @@ class RolForm(forms.ModelForm):
             'estado':'Estado'
         }
         widgets={
-            'id_rol' : forms.TextInput(attrs={'class':'form-control'}),
+            'id_rol' : forms.NumberInput,
             'Nombre_rol': forms.TextInput(attrs={'class':'form-control'}),
             'Estado': forms.TextInput(attrs={'class':'form-control'}),
-
-
          }

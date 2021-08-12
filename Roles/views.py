@@ -7,9 +7,9 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 
 def add_rol(request):
-
+    form = ""
     if request.method=='POST':
-        form=RolForm(request.POST or None, instance=Rol)
+        form=RolForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/listar_roles/')
