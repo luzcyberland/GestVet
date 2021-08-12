@@ -36,3 +36,6 @@ def eliminar_rol(request, id_rol):
     req = Rol.objects.get(id_rol=id_rol)
     req.delete()
     return redirect('/listar_roles/')
+#def
+
+
