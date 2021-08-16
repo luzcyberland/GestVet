@@ -17,9 +17,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 from django.urls import path
 from Roles.views import add_rol, RolesListView, RolUpdate, eliminar_rol
+from Usuarios.views import home, logoutUsuario
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name = 'admin'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('', home, name='index'),
+    path('logout/', logoutUsuario, name='logout'),
     path('crear_rol/', login_required(add_rol), name='crearrol'),
     path('listar_roles/', login_required(RolesListView.as_view()), name='listarroles'),
     path('modificar_rol/<pk>/',login_required(RolUpdate.as_view()), name='modificarrol'),
