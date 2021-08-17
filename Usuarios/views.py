@@ -24,7 +24,7 @@ def crear_usuario(request):
         form=UserRegisterForm(request.POST or None)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('/listar_usuarios/')
     else:
         form=UserRegisterForm()
     
