@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Lista de Usuarios{% endblock %}
+{% block h1 %}Lista de Usuarios{% endblock %}
+    {% block table %}
+
+    <table class = "table">
+    <thead>
+        <tr>
+          <th scope="col">Cedula</th>
+          <th scope="col">Nombre </th>
+          <th scope="col">Apellido </th>
+          <th scope="col">Rol </th>
+        </tr>
+    </thead>
+        {% if usuarios_list %}
+        {% for usuario in usuarios_list %}
+      <tbody>
+        <tr>
+        <td> {{ usuario.cedula }} </td>
+        <td>{{usuario.first_name}}</td>
+        <td>{{usuario.last_name}}</td>
+        <td>{{usuario.id_rol}}</td>
+        <td><a class="btn btn-success btn-sm " href="{% url 'modificarusuario' usuario.id %}">Editar</a></td>
+        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminarusuario' usuario.id %}">Eliminar</a></td>
+      </tr>
+        {% endfor %}
+      {% else %}
+        <p>No existen usuarios</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+
+    {% endblock %}
