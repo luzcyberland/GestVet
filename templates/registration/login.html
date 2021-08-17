@@ -1,0 +1,19 @@
+{% extends 'baselogin.html' %}
+    {%  block content %}
+
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="usuario">
+      <label for="floatingInput">Usuario</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="contraseña">
+      <label for="floatingPassword">Contraseña</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Recordarme
+      </label>
+    </div>
+    
+{% endblock %}
