@@ -10,7 +10,7 @@ from django.views.generic import UpdateView
 
 @login_required()
 def home(request):
-    return render(request,"base.html")
+    return render(request,"home.html")
 
 @login_required()
 def logoutUsuario(request):

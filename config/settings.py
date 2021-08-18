@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 AUTH_USER_MODEL = 'Usuarios.Usuario'
 
-LOGIN_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/accounts/login'
 
@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'GestVetDB',
 		'USER': 'postgres',
-		'PASSWORD': 'admin',
+		'PASSWORD': 'postgres',
 		'HOST': 'localhost',
 		'PORT': 5432,
     }
