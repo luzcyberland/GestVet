@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %}Modificar Cliente{% endblock %}
+{% block h1 %}Modificar Cliente{% endblock %}
+
+{% block content %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form|crispy }}
+  <br>
+  <button type="submit" class="btn btn-success">Actualizar cliente</button>
+</form>
+{% endblock %}

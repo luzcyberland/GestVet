@@ -6,7 +6,7 @@ from Clientes.models import Cliente
 
 class ClienteForm(forms.ModelForm):
     class Meta:
-        models = Cliente
+        model = Cliente
         fields = (
             'id_cliente',
             'nombre_cliente',
