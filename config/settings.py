@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'Roles',
     'Usuarios',
     'crispy_forms',
-    'bootstrap4'
+    'bootstrap4',
+    'Clientes'
 
 ]
 
@@ -90,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'GestVetDB',
 		'USER': 'postgres',
-		'PASSWORD': 'postgres',
+		'PASSWORD': 'admin',
 		'HOST': 'localhost',
 		'PORT': 5432,
     }
@@ -119,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-PY'
 
 TIME_ZONE = 'UTC'
 

@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.urls import path
 from Roles.views import add_rol, RolesListView, RolUpdate, eliminar_rol
 from Usuarios.views import home, logoutUsuario, crear_usuario, UsuariosListView, UsuarioUpdate, eliminar_usuarios
+from Clientes.views import add_cliente, ClientesListView, ClienteUpdate, eliminar_cliente
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -20,5 +21,8 @@ urlpatterns = [
     path('listar_usuarios/', login_required(UsuariosListView.as_view()), name='listarusuarios'),
     path('modificar_usuario/<pk>/',login_required(UsuarioUpdate.as_view()), name='modificarusuario'),
     path('eliminar_usuario/<int:id>/', login_required(eliminar_usuarios), name='eliminarusuario'),
+    path('crear_cliente/',login_required(add_cliente),name='crearcliente'),
+    path('listar_clientes/',login_required(ClientesListView.as_view()),name='listarclientes'),
+    path('modificar_cliente/<pk>',login_required(ClienteUpdate.as_view()),name='modificarcliente'),
+    path('eliminar_ciente/<int:id>',login_required(eliminar_cliente), name='eliminarcliente')
 ]
-#hello
