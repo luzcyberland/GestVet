@@ -5,7 +5,7 @@ class Cliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
     nombre_cliente = models.CharField(max_length=100)
     apellido_cliente = models.CharField(max_length=100)
-    cedula_cliente = models.IntegerField(max_length=100)
+    cedula_cliente = models.IntegerField()
     direccion_cliente = models.CharField(max_length=100)
     telefono_cliente = models.CharField(max_length=100)
     ruc_cliente = models.CharField(max_length=100)
