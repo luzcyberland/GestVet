@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,21 +10,21 @@
     <span class="d-flex justify-content-start" style="background-color: rgb(227,242,253);">
         <h6 style="color: gray;"> Bienvenido, {{ user.first_name}} {{user.last_name}} </h3>
      </span>
-
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'img/Gestvet.png' %}"/>
     <title>{% block title %}{% endblock %}</title>
 
 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">GestVet</a>
+  <a class="navbar-brand" href="{% url 'index'%}">GestVet</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Inicio<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'index'%}">Inicio<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Citas</a>
@@ -45,8 +46,8 @@
               aria-haspopup="true" aria-expanded="false">
               Modulo Administrador
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #734194;">
-            <a class="dropdown-item" href="{% url 'listarroles'%}" style="color : #ffffff;">Listar Roles</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #007BFF;">
+            <a class="dropdown-item" href="{% url 'listarroles'%}" style="color : #FFFFFF;" >Listar Roles</a>
             <a class="dropdown-item" href="{% url 'crearrol'%}" style="color : #ffffff;">Crear Rol</a>
             <a class="dropdown-item" href="{% url 'crearusuario'%}" style="color : #ffffff;">Crear Usuario</a>
             <a class="dropdown-item" href="{% url 'listarusuarios'%}" style="color : #ffffff;">Listar Usuarios</a>
