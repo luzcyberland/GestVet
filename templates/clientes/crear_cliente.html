@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Agregar Cliente{% endblock %}
+{% block h1 %}Agregar un nuevo Cliente{% endblock %}
+{% block content %}
+  <form method="post" novalidate action="{% url 'crearcliente' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button type="submit" class="btn btn-success">Agregar Cliente</button>
+    <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
+  </form>
+{% endblock %}
