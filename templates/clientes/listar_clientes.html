@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Lista de Clientes{% endblock %}
+{% block h1 %}Lista de Clientes{% endblock %}
+    {% block table %}
+    <table class = "table">
+    <a class ="btn btn-success btn-sm"  href= "{% url 'crearcliente' %}">Agregar Nuevo</a>
+    <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Cedula</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+        </tr>
+    </thead>
+        {% if clientes_list %}
+        {% for cliente in clientes_list %}
+      <tbody>
+        <tr>
+        <th scope="row">{{cliente.id_cliente}}</th>
+        <td> {{cliente.cedula_cliente}} </td>
+        <td>{{cliente.nombre_cliente}}</td>
+        <td>{{cliente.apellido_cliente}}</td>
+        <td><a class="btn btn-success btn-sm " href="{% url 'modificarcliente' cliente.id_cliente %}">Editar</a></td>
+        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminarcliente' cliente.id_cliente %}">Eliminar</a></td>
+      </tr>
+        {% endfor %}
+      {% else %}
+        <p>No existen clientes</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+  {% endblock %}
+
