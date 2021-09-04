@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+
 {% block title %}Agregar Cliente{% endblock %}
 {% block h1 %}Agregar un nuevo Cliente{% endblock %}
 {% block content %}
-  {% if user.id_rol_id == 1%}
+  {% if user.id_rol_id == 1 %}
   <form method="post" novalidate action="{% url 'crearcliente' %}">
   
     {% csrf_token %}
@@ -13,6 +14,6 @@
     <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
   </form>
   {% else %}
-    <h1>No tiene permisos</h1>
-  {% endif %}
+  <h1> No tiene permisos suficientes </h1>
+{% endif %}
 {% endblock %}
