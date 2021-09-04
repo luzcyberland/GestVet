@@ -28,7 +28,7 @@ class RolesListView(generic.ListView):
 
 class RolUpdate(UpdateView):
     model = Rol
-    fields = ['id_rol','nombre_rol','estado']
+    fields = ['id_rol','nombre_rol']
     template_name = 'roles/modificar_rol.html'
     success_url=reverse_lazy('listarroles')
 

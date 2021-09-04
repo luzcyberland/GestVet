@@ -12,5 +12,5 @@ class Cliente(models.Model):
     email_cliente = models.CharField(max_length=100)
      
     def __str__(self):
-        return self.nombre_cliente
+        return self.nombre_cliente + ' ' + self.apellido_cliente 
      

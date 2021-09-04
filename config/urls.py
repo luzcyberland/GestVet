@@ -6,6 +6,7 @@ from django.urls import path
 from Roles.views import add_rol, RolesListView, RolUpdate, eliminar_rol
 from Usuarios.views import home, logoutUsuario, crear_usuario, UsuariosListView, UsuarioUpdate, eliminar_usuarios
 from Clientes.views import add_cliente, ClientesListView, ClienteUpdate, eliminar_cliente
+from Pacientes.views import add_paciente, PacienteUpdate, PacientesListView, eliminar_paciente
 
 urlpatterns = [
     path('admin/', admin.site.urls, name = 'admin'),
@@ -23,5 +24,10 @@ urlpatterns = [
     path('crear_cliente/',login_required(add_cliente),name='crearcliente'),
     path('listar_clientes/',login_required(ClientesListView.as_view()),name='listarclientes'),
     path('modificar_cliente/<pk>',login_required(ClienteUpdate.as_view()),name='modificarcliente'),
-    path('eliminar_ciente/<int:id>',login_required(eliminar_cliente), name='eliminarcliente')
+    path('eliminar_ciente/<int:id>',login_required(eliminar_cliente), name='eliminarcliente'),
+    path('crear_paciente/',login_required(add_paciente),name='crearpaciente'),
+    path('listar_pacientes/',login_required(PacientesListView.as_view()), name = 'listarpacientes'),
+    path('modificar_paciente/<pk>/',login_required(PacienteUpdate.as_view()),name='modificarpaciente'),
+    path('eliminar_paciente/<int:id>',login_required(eliminar_paciente),name='eliminarpaciente')
+    
 ]
