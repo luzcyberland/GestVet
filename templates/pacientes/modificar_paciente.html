@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %}Modificar Paciente{% endblock %}
+{% block h1 %}Modificar Paciente{% endblock %}
+
+{% block content %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form|crispy }}
+  <br>
+  <button type="submit" class="btn btn-success">Actualizar paciente</button>
+  <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
+</form>
+{% endblock %}
