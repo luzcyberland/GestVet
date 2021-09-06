@@ -26,8 +26,6 @@
       {% if user.id_rol_id == 3%}
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'index'%}">Inicio<span class="sr-only">(current)</span></a>
-<<<<<<< HEAD
-=======
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Citas</a>
@@ -45,47 +43,12 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'listarclientes'%}">Clientes</a>
->>>>>>> Ajustes
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Citas</a>
       </li>
       <li class="nav-item">
-<<<<<<< HEAD
-        <a class="nav-link" href="{% url 'listarclientes'%}">Clientes</a>
-      </li>
-      {% if user.id_rol_id == 3%}
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Pacientes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Ventas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Pagos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Stock</a>
-      </li>
-     {% elif user.id_rol_id == 4%}
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Pacientes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Ventas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Pagos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Stock</a>
-      </li>
-      {% else %}
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pacientes</a>
-=======
         <a class="nav-link" href="{% url 'listarpacientes'%}">Pacientes</a>
->>>>>>> Ajustes
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Ventas</a>
@@ -105,20 +68,6 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #007BFF;">
             <a class="dropdown-item" href="{% url 'listarroles'%}" style="color : #FFFFFF;" >Listar Roles</a>
-<<<<<<< HEAD
-            <a class="dropdown-item" href="{% url 'crearrol'%}" style="color : #ffffff;">Crear Rol</a>
-            <a class="dropdown-item" href="{% url 'crearusuario'%}" style="color : #ffffff;">Crear Usuario</a>
-            <a class="dropdown-item" href="{% url 'listarusuarios'%}" style="color : #ffffff;">Listar Usuarios</a>
-            </div>
-        {% else %}
-        <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Modulo Administrador
-            </a>{% endif %}
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #734194;">
-            <a class="dropdown-item" href="{% url 'listarroles'%}" style="color : #ffffff;">Listar Roles</a>
-=======
->>>>>>> Ajustes
             <a class="dropdown-item" href="{% url 'crearrol'%}" style="color : #ffffff;">Crear Rol</a>
             <a class="dropdown-item" href="{% url 'crearusuario'%}" style="color : #ffffff;">Crear Usuario</a>
             <a class="dropdown-item" href="{% url 'listarusuarios'%}" style="color : #ffffff;">Listar Usuarios</a>
