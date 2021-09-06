@@ -9,7 +9,7 @@ class Paciente(models.Model):
     sexo_paciente = models.CharField(max_length=100)
     raza_paciente = models.CharField(max_length=100)
     especie_paciente = models.CharField(max_length=100)
-    id_cliente = models.ForeignKey(Cliente,on_delete=models.DO_NOTHING, default=1)
+    id_cliente = models.ForeignKey(Cliente,on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         return self.nombre_paciente
