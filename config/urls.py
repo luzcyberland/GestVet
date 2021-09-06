@@ -28,6 +28,5 @@ urlpatterns = [
     path('crear_paciente/',login_required(add_paciente),name='crearpaciente'),
     path('listar_pacientes/',login_required(PacientesListView.as_view()), name = 'listarpacientes'),
     path('modificar_paciente/<pk>/',login_required(PacienteUpdate.as_view()),name='modificarpaciente'),
-    path('eliminar_paciente/<int:id>',login_required(eliminar_paciente),name='eliminarpaciente')
-    
+    path('eliminar_paciente/<int:id>',login_required(eliminar_paciente),name='eliminarpaciente')    
 ]
