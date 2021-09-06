@@ -9,16 +9,16 @@ class RolForm(forms.ModelForm):
         fields = (
             'id_rol',
             'nombre_rol',
-            'estado'
+            #'estado'
         )
 
         labels = {
             'id_rol': 'ID Rol',
             'nombre_rol':'Nombre Rol',
-            'estado':'Estado'
+            #'estado':'Estado'
         }
         widgets={
             'id_rol' : forms.NumberInput,
             'Nombre_rol': forms.TextInput(attrs={'class':'form-control'}),
-            'Estado': forms.TextInput(attrs={'class':'form-control'}),
+            #'Estado': forms.TextInput(attrs={'class':'form-control'}),
          }

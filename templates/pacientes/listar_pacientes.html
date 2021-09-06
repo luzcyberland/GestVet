@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Lista de Pacientes{% endblock %}
+{% block h1 %}Lista de Pacientes{% endblock %}
+    {% block table %}
+    <table class = "table">
+    <a class ="btn btn-success btn-sm"  href= "{% url 'crearpaciente' %}">Agregar Nuevo</a>
+    <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Fecha de nacimiento</th>
+          <th scope="col">Especie</th>
+          <th scope="col">Dueño</th>
+        </tr>
+    </thead>
+        {% if pacientes_list %}
+        {% for paciente in pacientes_list %}
+      <tbody>
+        <tr>
+        <th scope="row">{{paciente.id_paciente}}</th>
+        <td> {{paciente.nombre_paciente}} </td>
+        <td>{{paciente.fecha_nacimiento}}</td>
+        <td>{{paciente.especie_paciente}}</td>
+        <td>{{paciente.id_cliente}}</td>
+        <td><a class="btn btn-success btn-sm " href="{% url 'modificarpaciente' paciente.id_paciente %}">Editar</a></td>
+        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminarpaciente' paciente.id_paciente %}">Eliminar</a></td>
+      </tr>
+        {% endfor %}
+      {% else %}
+        <p>No existen pacientes</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+  {% endblock %}
+

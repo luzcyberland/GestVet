@@ -3,7 +3,7 @@ from .models import Rol
 
 # Register your models here.
 class RolesAdmin(admin.ModelAdmin):
-    list_display = ('id_rol', 'nombre_rol','estado')
+    list_display = ('id_rol', 'nombre_rol')
     list_display_links = ('nombre_rol',)
 
 admin.site.register(Rol, RolesAdmin)
