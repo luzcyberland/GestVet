@@ -4,10 +4,6 @@ from django.conf.urls import url, include
 from Clientes.views import ClientesListView, ClienteUpdate
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> Ajustes
 urlpatterns=[
     url('agregar_cliente/',ClientesListView,name='crearcliente'),
     path('listar_roles/', login_required(ClientesListView.as_view()), name='listarclientes'),
