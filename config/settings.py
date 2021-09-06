@@ -43,7 +43,12 @@ INSTALLED_APPS = [
     'Usuarios',
     'crispy_forms',
     'bootstrap4',
+<<<<<<< HEAD
     'Clientes'
+=======
+    'Clientes',
+    'Pacientes'
+>>>>>>> Ajustes
 
 ]
 
@@ -91,7 +96,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'GestVetDB',
 		'USER': 'postgres',
+<<<<<<< HEAD
+		'PASSWORD':'postgres',
+=======
 		'PASSWORD': 'postgres',
+>>>>>>> origin/PGV-11
 		'HOST': 'localhost',
 		'PORT': 5432,
     }

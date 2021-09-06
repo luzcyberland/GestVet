@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.utils.decorators import method_decorator
 from .forms import UserRegisterForm
 from .models import Usuario
 from django.views import generic
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
+from custom_decorators.decorators_2 import rol_required
 # Create your views here.
 
 @login_required()
@@ -18,6 +20,7 @@ def logoutUsuario(request):
     return redirect('/accounts/login/')
 
 @login_required()
+@rol_required(1)
 def crear_usuario(request):
     form=""
     if request.method=='POST':
@@ -30,6 +33,7 @@ def crear_usuario(request):
     
     return render(request, 'usuarios/crear_usuario.html',{'form':form})
 
+@method_decorator(rol_required(1), name='dispatch')
 class UsuariosListView(generic.ListView):
     model = Usuario
     context_object_name = 'usuarios_list' 
@@ -38,6 +42,7 @@ class UsuariosListView(generic.ListView):
     def get_queryset(self):
         return Usuario.objects.all()
 
+@method_decorator(rol_required(1), name='dispatch')
 class UsuarioUpdate(UpdateView):
     model = Usuario
     fields = [
@@ -56,6 +61,7 @@ class UsuarioUpdate(UpdateView):
     template_name = 'usuarios/editar_usuario.html'
     success_url=reverse_lazy('listarusuarios')
 
+@rol_required(1)
 def eliminar_usuarios(request, id):
     req = Usuario.objects.get(id=id)
     req.delete()
