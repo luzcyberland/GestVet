@@ -4,16 +4,11 @@
 {% block title %}Agregar Cliente{% endblock %}
 {% block h1 %}Agregar un nuevo Cliente{% endblock %}
 {% block content %}
-  {% if user.id_rol_id == 1 %}
-  <form method="post" novalidate action="{% url 'crearcliente' %}">
-  
+  <form method="post" novalidate action="{% url 'crearcliente' %}">  
     {% csrf_token %}
     {{ form|crispy }}
     <br>
     <button type="submit" class="btn btn-success">Agregar Cliente</button>
     <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
   </form>
-  {% else %}
-  <h1> No tiene permisos suficientes </h1>
-{% endif %}
 {% endblock %}
