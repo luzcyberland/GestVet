@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 
 # Create your views here.
 
-@rol_required(2)
+@rol_required('Recepcion')
 def add_paciente(request):
     form = ""
     if request.method == 'POST':
@@ -25,7 +25,7 @@ def add_paciente(request):
         form=PacienteForm
     return render(request,'pacientes/crear_paciente.html',{'form':form})
 
-@method_decorator(rol_required(2), name='dispatch')
+@method_decorator(rol_required('Recepcion'), name='dispatch')
 class PacientesListView(generic.ListView):
     model = Paciente
     context_object_name = 'pacientes_list' 
@@ -34,14 +34,14 @@ class PacientesListView(generic.ListView):
     def get_queryset(self):
         return Paciente.objects.all()
 
-@method_decorator(rol_required(2), name='dispatch')
+@method_decorator(rol_required('Recepcion'), name='dispatch')
 class PacienteUpdate(UpdateView):
     model = Paciente
     fields = ['id_paciente', 'nombre_paciente', 'fecha_nacimiento', 'sexo_paciente', 'raza_paciente', 'especie_paciente','id_cliente']
     template_name = 'pacientes/modificar_paciente.html'
     success_url=reverse_lazy('listarpacientes')
 
-@rol_required(2)
+@rol_required('Recepcion')
 def eliminar_paciente(request, id_paciente):
     req = Paciente.objects.get(id_paciente=id_paciente)
     req.delete()

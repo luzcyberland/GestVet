@@ -7,7 +7,7 @@ from django.views.generic import UpdateView
 from django.urls import reverse_lazy
 from custom_decorators.decorators_2 import rol_required
 
-@rol_required(1)
+@rol_required('Administrador')
 def add_rol(request):
     form = ""
     if request.method=='POST':
@@ -20,7 +20,7 @@ def add_rol(request):
     
     return render(request, 'roles/crear_rol.html',{'form':form})
     
-@method_decorator(rol_required(1), name='dispatch')
+@method_decorator(rol_required('Administrador'), name='dispatch')
 class RolesListView(generic.ListView):
     model = Rol
     context_object_name = 'roles_list' 
@@ -29,14 +29,14 @@ class RolesListView(generic.ListView):
     def get_queryset(self):
         return Rol.objects.all()
 
-@method_decorator(rol_required(1), name='dispatch')
+@method_decorator(rol_required('Administrador'), name='dispatch')
 class RolUpdate(UpdateView):
     model = Rol
     fields = ['id_rol','nombre_rol']
     template_name = 'roles/modificar_rol.html'
     success_url=reverse_lazy('listarroles')
 
-@rol_required(1)
+@rol_required('Administrador')
 def eliminar_rol(request, id_rol):
     req = Rol.objects.get(id_rol=id_rol)
     req.delete()

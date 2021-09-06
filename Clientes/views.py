@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 #from .decorators_2 import *
 
 
-@rol_required(2)#Requiere Rol de Recepcion
+@rol_required('Recepcion')#Requiere Rol de Recepcion
 def add_cliente(request):
     form = ""
     if request.method == 'POST':
@@ -22,7 +22,7 @@ def add_cliente(request):
         form=ClienteForm
     return render(request,'clientes/crear_cliente.html',{'form':form})
 
-@method_decorator(rol_required(2), name='dispatch')
+@method_decorator(rol_required('Recepcion'), name='dispatch')
 class ClientesListView(generic.ListView):
     model = Cliente
     context_object_name = 'clientes_list' 
@@ -30,14 +30,14 @@ class ClientesListView(generic.ListView):
     def get_queryset(self):
         return Cliente.objects.all()
 
-@method_decorator(rol_required(2), name='dispatch')
+@method_decorator(rol_required('Recepcion'), name='dispatch')
 class ClienteUpdate(UpdateView):
     model = Cliente
     fields = ['id_cliente', 'nombre_cliente', 'apellido_cliente', 'cedula_cliente', 'direccion_cliente', 'telefono_cliente', 'ruc_cliente', 'email_cliente']
     template_name = 'clientes/modificar_cliente.html'
     success_url=reverse_lazy('listarclientes')
     
-@rol_required(2)
+@rol_required('Recepcion')
 def eliminar_cliente(request, id_cliente):
     req = Cliente.objects.get(id_cliente=id_cliente)
     req.delete()

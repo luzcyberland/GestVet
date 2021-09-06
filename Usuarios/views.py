@@ -20,7 +20,7 @@ def logoutUsuario(request):
     return redirect('/accounts/login/')
 
 @login_required()
-@rol_required(1)
+@rol_required('Administrador')
 def crear_usuario(request):
     form=""
     if request.method=='POST':
@@ -33,7 +33,7 @@ def crear_usuario(request):
     
     return render(request, 'usuarios/crear_usuario.html',{'form':form})
 
-@method_decorator(rol_required(1), name='dispatch')
+@method_decorator(rol_required('Administrador'), name='dispatch')
 class UsuariosListView(generic.ListView):
     model = Usuario
     context_object_name = 'usuarios_list' 
@@ -42,7 +42,7 @@ class UsuariosListView(generic.ListView):
     def get_queryset(self):
         return Usuario.objects.all()
 
-@method_decorator(rol_required(1), name='dispatch')
+@method_decorator(rol_required('Administrador'), name='dispatch')
 class UsuarioUpdate(UpdateView):
     model = Usuario
     fields = [
@@ -61,7 +61,7 @@ class UsuarioUpdate(UpdateView):
     template_name = 'usuarios/editar_usuario.html'
     success_url=reverse_lazy('listarusuarios')
 
-@rol_required(1)
+@rol_required('Administrador')
 def eliminar_usuarios(request, id):
     req = Usuario.objects.get(id=id)
     req.delete()
