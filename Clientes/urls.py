@@ -6,6 +6,6 @@ from Clientes.views import ClientesListView, ClienteUpdate
 
 urlpatterns=[
     url('agregar_cliente/',ClientesListView,name='crearcliente'),
-    path('listar_roles/', login_required(ClientesListView.as_view()), name='listarclientes'),
+    path('listar_cientes/', login_required(ClientesListView.as_view()), name='listarclientes'),
     path('modificar_cliente/<pk>/',login_required(ClienteUpdate.as_view()), name='modificarcliente'),
 ]

@@ -35,4 +35,5 @@ class PacienteForm(forms.ModelForm):
             'raza_paciente' : forms.TextInput(attrs={'class':'form-control'}),
             'especie_paciente' : forms.TextInput(attrs={'class':'form-control'}),
             'id_cliente' : forms.TextInput(attrs={'class':'form-control'})
-        }'''
+        }
+        '''
