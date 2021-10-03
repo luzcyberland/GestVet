@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Lista de Marcas{% endblock %}
+{% block h1 %}Lista de Marcas{% endblock %}
+    {% block table %}
+    <table class = "table">
+    <a class ="btn btn-success btn-sm"  href= "{% url 'agregar_marca' %}">Agregar Nuevo</a>
+    <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Descripcion</th>
+        </tr>
+    </thead>
+        {% if marca_list %}
+        {% for marca in marca_list %}
+      <tbody>
+        <tr>
+        <th scope="row">{{marca.id_marca}}</th>
+        <td> {{marca.descripcion}} </td>
+        <td><a class="btn btn-success btn-sm " href="{% url 'modificar_marca' marca.id_marca %}">Editar</a></td>
+        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminar_marca' marca.id_marca %}">Eliminar</a></td>
+      </tr>
+        {% endfor %}
+      {% else %}
+        <p>No existen marcas</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+  {% endblock %}
+
