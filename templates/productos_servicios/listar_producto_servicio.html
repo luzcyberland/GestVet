@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Lista Producto / Servicio{% endblock %}
+{% block h1 %}Lista Producto / Servicio{% endblock %}
+    {% block table %}
+    <table class = "table">
+    <a class ="btn btn-success btn-sm"  href= "{% url 'agregar_producto_servicio' %}">Agregar Nuevo</a>
+    <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Stock</th>
+        </tr>
+    </thead>
+        {% if producto_servicio_list %}
+        {% for producto in producto_servicio_list %}
+      <tbody>
+        <tr>
+        <th scope="row">{{producto.id_producto_servicio}}</th>
+        <td> {{producto.descripcion}} </td>
+        <td> {{producto.marca}} </td>
+        <td> {{producto.precio}} / {{producto.unidadMedida}}</td>
+        <td> {{producto.existencia}} </td>
+        <td><a class="btn btn-success btn-sm " href="{% url 'modificar_producto_servicio' producto.id_producto_servicio %}">Editar</a></td>
+        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminar_producto_servicio' producto.id_producto_servicio %}">Eliminar</a></td>
+      </tr>
+        {% endfor %}
+      {% else %}
+        <p>No existen marcas</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+  {% endblock %}
+

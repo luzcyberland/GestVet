@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Agregar Unidad de Medida{% endblock %}
+{% block h1 %}Agregar Unidad de Medida{% endblock %}
+{% block content %}
+  <form method="post" novalidate action="{% url 'agregar_unidad_medida' %}">  
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button type="submit" class="btn btn-success">Agregar</button>
+    <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
+  </form>
+{% endblock %}

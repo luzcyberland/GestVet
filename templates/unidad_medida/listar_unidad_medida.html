@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Lista Unidad de Medida{% endblock %}
+{% block h1 %}Lista Unidad de Medida{% endblock %}
+    {% block table %}
+    <table class = "table">
+    <a class ="btn btn-success btn-sm"  href= "{% url 'agregar_unidad_medida' %}">Agregar Nuevo</a>
+    <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Descripcion</th>
+        </tr>
+    </thead>
+        {% if unidad_medida_list %}
+        {% for unidad in unidad_medida_list %}
+      <tbody>
+        <tr>
+        <th scope="row">{{unidad.id_unidad_medida}}</th>
+        <td> {{unidad.descripcion}} </td>
+        <td><a class="btn btn-success btn-sm " href="{% url 'modificar_unidad_medida' unidad.id_unidad_medida %}">Editar</a></td>
+        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminar_unidad_medida' unidad.id_unidad_medida %}">Eliminar</a></td>
+      </tr>
+        {% endfor %}
+      {% else %}
+        <p>No existen unidades de medida</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+  {% endblock %}
+

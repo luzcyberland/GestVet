@@ -7,6 +7,7 @@ from Roles.views import add_rol, RolesListView, RolUpdate, eliminar_rol
 from Usuarios.views import home, logoutUsuario, crear_usuario, UsuariosListView, UsuarioUpdate, eliminar_usuarios
 from Clientes.views import add_cliente, ClientesListView, ClienteUpdate, eliminar_cliente
 from Pacientes.views import add_paciente, PacienteUpdate, PacientesListView, eliminar_paciente
+from Inventario.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls, name = 'admin'),
@@ -28,5 +29,17 @@ urlpatterns = [
     path('crear_paciente/',login_required(add_paciente),name='crearpaciente'),
     path('listar_pacientes/',login_required(PacientesListView.as_view()), name = 'listarpacientes'),
     path('modificar_paciente/<pk>/',login_required(PacienteUpdate.as_view()),name='modificarpaciente'),
-    path('eliminar_paciente/<int:id_paciente>',login_required(eliminar_paciente),name='eliminarpaciente')    
+    path('eliminar_paciente/<int:id_paciente>',login_required(eliminar_paciente),name='eliminarpaciente'),
+    path('agregar_marca/',login_required(add_marca),name='agregar_marca'),
+    path('listar_marcas/', login_required(MarcaView.as_view()), name='listar_marcas'),
+    path('modificar_marca/<pk>/',login_required(MarcaUpdate.as_view()), name='modificar_marca'),
+    path('eliminar_marca/<int:id>/', login_required(eliminar_marca), name='eliminar_marca'),
+    path('agregar_unidad_medida/',login_required(add_unidad_medida),name='agregar_unidad_medida'),
+    path('listar_unidad_medida/', login_required(UnidadMedidaView.as_view()), name='listar_unidad_medida'),
+    path('modificar_unidad_medida/<pk>/',login_required(UnidadMedidaUpdate.as_view()), name='modificar_unidad_medida'),
+    path('eliminar_unidad_medida/<int:id>/', login_required(eliminar_unidad_medida), name='eliminar_unidad_medida'),
+    path('agregar_producto_servicio/',login_required(add_pruducto_servicio),name='agregar_producto_servicio'),
+    path('listar_productos_servicios/', login_required(ProductoServicioView.as_view()), name='listar_productos_servicios'),
+    path('modificar_producto_servicio/<pk>/',login_required(ProductoServicioUpdate.as_view()), name='modificar_producto_servicio'),
+    path('eliminar_producto_servicio/<int:id>/', login_required(eliminar_producto_servicio), name='eliminar_producto_servicio')  
 ]
