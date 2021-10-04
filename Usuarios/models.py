@@ -2,13 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from Roles.models import Rol
 
-#id:number
-#nombre:String
-#apellido:String
-#cedula:number
-#direccion:String
-#telefono:String
-#correo:String
 
 class Usuario(AbstractUser):
     cedula = models.IntegerField(default=0)
