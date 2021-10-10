@@ -42,6 +42,7 @@ class ProductoServicioForm(forms.ModelForm):
             'marca',
             'unidadMedida',
             'es_producto',
+            'porc_iva'
         ]
         
         labels = {
@@ -54,6 +55,7 @@ class ProductoServicioForm(forms.ModelForm):
             'marca':'Marca',
             'unidadMedida':'Unidad de Medida',
             'es_producto':'Es Producto',
+            'porc_iva' :'Porcentaje Iva',
         }
         widget = {'descripcion': forms.TextInput}
 

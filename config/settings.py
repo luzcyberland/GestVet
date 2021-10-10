@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'Clientes',
     'Pacientes',
-    'Inventario'
+    'Inventario',
+    'Facturacion'
 
 ]
 
@@ -124,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-PY'
 
-#TIME_ZONE = 'America/Asuncion
+TIME_ZONE = 'America/Asuncion'
 
 TIME_ZONE = 'UTC'
 

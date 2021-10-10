@@ -1833,7 +1833,7 @@ pre code {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #6e707e;
+  color: #5c5c61;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #d1d3e2;
@@ -10969,8 +10969,8 @@ form.user .btn-user {
 }
 
 .error {
-  color: #5a5c69;
-  font-size: 7rem;
+  color: #0022ff;
+  font-size: 1rem;
   position: relative;
   line-height: 1;
   width: 12.5rem;
@@ -11119,6 +11119,7 @@ form.user .btn-user {
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
   animation: noise-anim 2s infinite linear alternate-reverse;
+  
 }
 
 @-webkit-keyframes noise-anim-2 {

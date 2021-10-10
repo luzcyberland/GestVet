@@ -20,7 +20,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/sb-admin-2.css'%}" rel="stylesheet">
 
 </head>
 
@@ -88,7 +88,6 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
                         <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
@@ -105,11 +104,9 @@
                 <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities2"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="{% url 'facturacion:listarFacturas'%}">Facturacion</a>
+                        
                     </div>
                 </div>
             </li>
@@ -810,6 +807,66 @@
     <!-- Page level custom scripts -->
     <script src="{% static 'js/demo/chart-area-demo.js'%}"></script>
     <script src="{% static 'js/demo/chart-pie-demo.js'%}"></script>
+    <!-- Scripts agregados -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.js' %}"></script>
+    <script src="{% static 'vendor/jquery-confirm/jquery-confirm.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-table/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-table/bootstrap-table-locale-all.min.js' %}"></script>
+    <script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+    <script src="{% static 'js/jquery.chained.min.js' %}"></script>
+    <script>
+    $(document).ready(function() {
+      jQuery.datetimepicker.setLocale('es');
+    });
+    </script>
+  {% block controlModal %}
+  <div class="modal fade" id="popup"></div>
+  <script>
+    function abrirModal(url) {
+      $("#popup").load(url, function() {
+        $(this).modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+        $(this).modal('show');
+      });
+
+      return false;
+    }
+    
+    function cerrarModal() {
+      $('#popup').modal('hide');
+
+      return false;
+    }
+
+    function mensaje(mensaje, color='green') {
+      if (color === 'success') {
+        color = 'green';
+      }
+
+      if (color === 'error') {
+        color = 'red';
+      }
+
+      $.alert({
+        title: '',
+        theme: 'material',
+        type: color,
+        content: mensaje
+      });
+    }
+
+    {% if messages %}
+      {% for message in messages %}
+        mensaje("{{ message }}")
+      {% endfor %}
+    {% endif %}
+  </script>
+  {% endblock %}
+  {% block javascript %} {% endblock javascript %}
 
 </body>
 

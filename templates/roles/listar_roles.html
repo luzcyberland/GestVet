@@ -6,7 +6,14 @@
     {% block table %}
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+
+        <a href="{% url 'crearrol' %}" class="btn btn-success btn-icon-split">
+          <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+           </span>
+           <span class="text">Añadir Rol</span>
+        </a>
+        
       </div>
       <div class="card-body">
           <div class="table-responsive">
@@ -24,8 +31,21 @@
         <th >{{rol.id_rol}}</th>
         <td> {{ rol.nombre_rol }} </td>
         <!--<td>{{rol.estado}}</td>-->
-        <td><a class="btn btn-success btn-sm " href="{% url 'modificarrol' rol.id_rol %}">Editar</a></td>
-        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminarrol' rol.id_rol %}">Eliminar</a></td>
+        
+        <td><a href= "{% url 'modificarrol' rol.id_rol %}" class="btn btn-success btn-icon-split">
+              <span class="icon text-white-50">
+              |<i class="fas fa-edit"></i>
+              </span>
+              <span class="text">Editar</span>
+            </a>
+         </td>
+         <td><a href= "{% url 'eliminarrol' rol.id_rol %}" class="btn btn-danger btn-icon-split">
+              <span class="icon text-white-50">
+              |<i class="fas fa-trash"></i>
+              </span>
+              <span class="text">Eliminar</span>
+            </a>
+         </td>
       </tr>
         {% endfor %}
       {% else %}

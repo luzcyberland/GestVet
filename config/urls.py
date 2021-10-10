@@ -2,11 +2,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from Roles.views import add_rol, RolesListView, RolUpdate, eliminar_rol
 from Usuarios.views import home, logoutUsuario, crear_usuario, UsuariosListView, UsuarioUpdate, eliminar_usuarios
 from Clientes.views import add_cliente, ClientesListView, ClienteUpdate, eliminar_cliente
 from Pacientes.views import add_paciente, PacienteUpdate, PacientesListView, eliminar_paciente
+
 from Inventario.views import *
 
 urlpatterns = [
@@ -41,5 +42,7 @@ urlpatterns = [
     path('agregar_producto_servicio/',login_required(add_pruducto_servicio),name='agregar_producto_servicio'),
     path('listar_productos_servicios/', login_required(ProductoServicioView.as_view()), name='listar_productos_servicios'),
     path('modificar_producto_servicio/<pk>/',login_required(ProductoServicioUpdate.as_view()), name='modificar_producto_servicio'),
-    path('eliminar_producto_servicio/<int:id>/', login_required(eliminar_producto_servicio), name='eliminar_producto_servicio')  
-]
+    path('eliminar_producto_servicio/<int:id>/', login_required(eliminar_producto_servicio), name='eliminar_producto_servicio'),
+    path('facturacion/', include(('Facturacion.urls', 'facturacion') ,namespace='facturacion')),
+    path('api/', include(('api.urls', 'api'), namespace='api'))
+    ]
