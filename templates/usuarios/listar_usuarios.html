@@ -1,12 +1,25 @@
-{% extends 'base.html' %}
+
+{% extends 'base_prueba.html' %}
 
 
 {% block title %}Lista de Usuarios{% endblock %}
 {% block h1 %}Lista de Usuarios{% endblock %}
     {% block table %}
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
 
-    <table class = "table">
-    <thead>
+        <a href="{% url 'crearusuario' %}" class="btn btn-success btn-icon-split">
+          <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+           </span>
+           <span class="text">Agregar Usuario</span>
+        </a>
+        
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
         <tr>
           <th scope="col">Cedula</th>
           <th scope="col">Nombre </th>
@@ -22,12 +35,26 @@
         <td>{{usuario.first_name}}</td>
         <td>{{usuario.last_name}}</td>
         <td>{{usuario.id_rol}}</td>
-        <td><a class="btn btn-success btn-sm " href="{% url 'modificarusuario' usuario.id %}">Editar</a></td>
-        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminarusuario' usuario.id %}">Eliminar</a></td>
+       
+        
+        <td><a href= "{% url 'modificarusuario' usuario.id %}"class="btn btn-success btn-icon-split">
+              <span class="icon text-white-50">
+              |<i class="fas fa-edit"></i>
+              </span>
+              <span class="text">Editar</span>
+            </a>
+         </td>
+         <td><a href= "{% url 'eliminarusuario' usuario.id %}" class="btn btn-danger btn-icon-split">
+              <span class="icon text-white-50">
+              |<i class="fas fa-trash"></i>
+              </span>
+              <span class="text">Eliminar</span>
+            </a>
+         </td>
       </tr>
         {% endfor %}
       {% else %}
-        <p>No existen usuarios</p>
+        <p>No existen roles</p>
       {% endif %}
        </tbody>
     </table>

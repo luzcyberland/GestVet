@@ -12,13 +12,13 @@ class RolForm(forms.ModelForm):
             #'estado'
         )
 
-        labels = {
-            'id_rol': 'ID Rol',
-            'nombre_rol':'Nombre Rol',
+        #labels = {
+         #   'id_rol': 'ID Rol',
+          #  'nombre_rol':'Nombre Rol',
             #'estado':'Estado'
-        }
-        widgets={
-            'id_rol' : forms.NumberInput,
-            'Nombre_rol': forms.TextInput(attrs={'class':'form-control'}),
+        #}
+        #widgets={
+        #    'id_rol' : forms.NumberInput,
+        #    'Nombre_rol': forms.TextInput(attrs={'class':'form-control'}),
             #'Estado': forms.TextInput(attrs={'class':'form-control'}),
-         }
+        # }

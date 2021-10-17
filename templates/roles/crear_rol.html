@@ -1,13 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'base_prueba.html' %}
+
 {% load crispy_forms_tags %}
 {% block title %}Agregar Rol{% endblock %}
 {% block h1 %}Agregar un nuevo Rol{% endblock %}
 {% block content %}
-  <form method="post" novalidate action="{% url 'crearrol' %}">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <br>
-    <button type="submit" class="btn btn-success">Agregar Rol</button>
-    <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
-  </form>
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Ingrese ID y Nombre</h6>
+  </div>
+    <div class="card-body">
+        <form  method="POST" action="{% url 'crearrol' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br>
+            <button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Agregar</button>
+            
+            <a href="{% url 'listarroles'%}" class="btn btn-danger">Cancelar</a>
+          </form>
+    </div>
+</div>      
+
+
 {% endblock %}

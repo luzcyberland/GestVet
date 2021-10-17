@@ -122,6 +122,7 @@ class ProductoServicioUpdate(UpdateView):
             'marca',
             'unidadMedida',
             'es_producto',
+            'porc_iva'
         ]
     template_name = 'productos_servicios/modificar_producto_servicio.html'
     success_url=reverse_lazy('listar_productos_servicios')

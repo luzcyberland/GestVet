@@ -25,11 +25,18 @@ class ProductoServicio (models.Model):
     codigoBarra = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=200)
     precio = models.FloatField(default=0)
-    existencia = models.IntegerField(default=0)
+    existencia = models.FloatField(default=0)
     ultimaCompra = models.DateField(null=True, blank=True)
     marca = models.ForeignKey(Marca, on_delete=models.CASCADE)
     unidadMedida = models.ForeignKey(UnidadMedida, on_delete=models.CASCADE)
     es_producto = models.BooleanField(default=True)
+    #iva_5 = 5
+    #iva_10 = 10
+    #iva_exe = 0
+    #porc_iva_op = [(iva_5, ('5')), (iva_10, ('10')), (iva_exe, ('0'))]
+    #porc_iva = models.PositiveSmallIntegerField( choices= porc_iva_op, default= iva_exe)
 
+    porc_iva = models.IntegerField(default=0)
+    
     def __str__(self):
         return self.descripcion
