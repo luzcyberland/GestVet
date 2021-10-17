@@ -136,31 +136,20 @@ def borrarDetalleFactura(request, id):
         detalleFactura.subTotalDetalle = (-1 * detalleFactura.subTotalDetalle)
         detalleFactura.descuentoDetalle = (-1 * detalleFactura.descuentoDetalle)
         detalleFactura.totalDetalle = (-1 * detalleFactura.totalDetalle)
-
         detalleFactura.save()
-    
+        return HttpResponse("Ok")
+
+        
     return render(request, template_name, contexto)
+    
 
-    '''if request.method == "POST":
-        user = request.POST.get("usuario")
-        password = request.POST.get("password")
-        usuario = authenticate(username=user, password=password)
 
-        if not usuario:
-            return HttpResponse("Usuario o contraseña incorrecta")
-
-        if not usuario.is_active:
-            return HttpResponse("Usuario inactivo")
-
-        if usuario.is_superuser or usuario.has_perm("facturacion.sup_caja_detalleFactura"):
-            detalleFactura.id = None
-            detalleFactura.cantidad = (-1 * detalleFactura.cantidad)
-            detalleFactura.subTotalDetalle = (-1 * detalleFactura.subTotalDetalle)
-            detalleFactura.descuentoDetalle = (-1 * detalleFactura.descuentoDetalle)
-            detalleFactura.totalDetalle = (-1 * detalleFactura.totalDetalle)
-
-            detalleFactura.save()
-
-            return HttpResponse("Ok")
-
-        return HttpResponse("Usuario no autorizado")'''
+@rol_required('Recepcion')
+def eliminar_factura(request, id_factura):
+    if (id_factura != 0):
+        req = Factura.objects.get(id_factura=id_factura)
+        req.delete()
+        return redirect('facturacion:listarFacturas')
+    else:
+        return redirect('facturacion:listarFacturas')
+    

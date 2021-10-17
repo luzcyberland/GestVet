@@ -1,13 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'base_prueba.html' %}
+
 {% load crispy_forms_tags %}
 {% block title %}Agregar Usuario{% endblock %}
 {% block h1 %}Agregar un nuevo Usuario{% endblock %}
 {% block content %}
-  <form method="post" novalidate action="{% url 'crearusuario' %}">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <br>
-    <button type="submit" class="btn btn-success">Agregar Usuario</button>
-    <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
-  </form>
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Ingrese datos del nuevo usuario</h6>
+  </div>
+    <div class="card-body">
+        <form  method="POST" action="{% url 'crearusuario' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br>
+            <button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Agregar</button>
+            
+            <a href="{% url 'listarusuarios'%}" class="btn btn-danger">Cancelar</a>
+          </form>
+    </div>
+</div>      
+
+
 {% endblock %}

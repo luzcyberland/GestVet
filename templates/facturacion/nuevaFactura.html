@@ -5,21 +5,29 @@
   {% csrf_token %}
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <a href="#" class="btn btn-danger">Guardar</a>
+      
       <a href="{% url 'facturacion:listarFacturas' %}" class="btn btn-info">Cancelar</a>
+      <!-- {% for item in detalleFactura %}
+        {% if forloop.first  %}
+          <a href="{% url 'facturacion:listarFacturas' %}" class="btn btn-info">Cancelar</a>
+        {% else %}
+        <a href="{% url 'facturacion:eliminarFactura' factura.id_factura %}" class="btn btn-info">Cancelar</a>
+        {% endif %}
+      {% endfor %}
+      -->
     </div>
     <div class="card-body">
-      <div class="content">
+      <div class="content">   
         <div class="row">
           <div class="col-lg-6 form-group">
             <div class="content">
               <div class="row">
                 <div class="col-lg-1">Nr.</div>
-                <div class="col-lg-4"><input type="text" class="form-control" name="id" id="idFactura" readonly></div>
+                <div class="col-lg-4"><input type="text"  class="form-control form-control-user" value="{{ factura.id_factura }}" readonly></div>
                 <div class="col-lg-2">Cliente:</div>
                 <div class="col-lg-5 form-group">
                   <select name="cliente" id="clienteFactura" class="form-control" required>
-                    <option value="0">Seleccione el cliente</option>
+                    <option value="">Seleccione el cliente</option>
                     {% for cliente in clientes %}
                     <option value="{{ cliente.id_cliente }}">{{ cliente.nombre_cliente }} {{ cliente.apellido_cliente }}</option>
                     {% endfor %}
@@ -248,10 +256,10 @@
   $(document).ready(function() {
     $("#sidebarToggle").click();
 
-    $("#clienteFactura").select2({
+    /*$("#clienteFactura").select2({
       placeholder: 'Seleccione un cliente',
       allowClear: true
-    });
+    });*/
 
     $('#btnBuscar').click(function(e) {
       if ($('#clienteFactura').val() === '0') {
@@ -279,11 +287,8 @@
     $('#fecha').val("{{ factura.fecha|date:'Y-m-d' }}");
     $('#subTotal').val({{ factura.subTotal }});
     $('#descuento').val({{ factura.descuento }});
-    if (porc_iva == 5) {
-    //  document.getElementById("demo").innerHTML = 5 + 6;
-      $('#monto_gravado_det').val({{ factura.monto_gravado }});
-    }
     $('#total').val({{ factura.total }});
+    
   });
 
   function borrarDetalle(id) {
@@ -291,19 +296,20 @@
       theme: 'modern',
       icon: 'fab fa-keycdn',
       type: 'red',
-      title: 'Confirmación requerida',
+      title: 'Eliminar item de factura',
+      /*title: 'Confirmación requerida',*/
       content: 'url:/facturacion/facturas/borrarDetalleFactura/' + id,
-      onContentReady: function() {
+      /*onContentReady: function() {
         this.$content.find('#usuario').val('{{ user.username }}');
         this.$content.find('#usuario').select();
         this.$content.find('#usuario').focus();
-      },
+      },*/
       buttons: {
         borrar: {
           text: 'Borrar',
           btnClass: 'btn btn-danger',
           action: function() {
-            const usuario = this.$content.find('input#usuario');
+            /*const usuario = this.$content.find('input#usuario');
             const password = this.$content.find('input#password');
 
             if (!usuario.val().trim()) {
@@ -321,13 +327,12 @@
             const datos = {
               'usuario': usuario.val(),
               'password': password.val()
-            };
+            };*/
             const token = '{{csrf_token}}';
-
             $.ajax({
               headers: {'X-CSRFToken': token},
               type: 'POST',
-              data: datos,
+              //data: datos,
               url: '/facturacion/facturas/borrarDetalleFactura/' + id,
               success: function(res) {
                 if (res === 'Ok') {
@@ -348,7 +353,5 @@
     });
   }
 
-
-  
 </script>
 {% endblock %}
