@@ -1,0 +1,101 @@
+{% extends 'base_prueba.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %}Agregar Pago{% endblock %}
+{% block h1 %}Agregar un nuevo Pago{% endblock %}
+{% block content %}
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+  </div>
+    <div class="card-body">
+        <form  method="POST" action="{% url 'pagos:agregar_pago' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br>
+            <button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Agregar</button>
+            
+            <a href="{% url 'facturacion:listarFacturas'%}" class="btn btn-danger">Cancelar</a>
+          </form>
+    </div>
+</div>   
+
+{% endblock %}
+{% block javascript %}
+<script>
+
+function buscarProducto() {
+    
+
+    const codigo = $('#codigo').val();
+
+    if (codigo === '') return false;
+
+    const path = "{% url 'api:listaProductos' %}" + codigo;
+
+    $.ajax({
+      type: 'GET',
+      url: path,
+      success: function(r) {
+        if (r.existencia <= 0) {
+            
+        $('#codigo').val(r.codigo);
+        $('#descripcion').val(r.descripcion);
+        $('#precio').val(r.precio);
+        $('#porc_iva').val(r.porc_iva);
+        $('#cantidad').focus();
+
+      },
+      error: function(a) {
+        if (a.status === 404) {
+          mensaje('Producto -' + codigo + '- no encontrado o no existe', 'red');
+          $('#codigo').val('');
+          $('#descripcion').val('');
+          $('#precio').val('0.00');          
+          $('#porc_iva').val('0.00');
+          $('#codigo').focus();
+        }
+      }
+    });
+  }
+
+  $(document).ready(function() {
+    $("#sidebarToggle").click();
+
+    /*$("#clienteFactura").select2({
+      placeholder: 'Seleccione un cliente',
+      allowClear: true
+    });*/
+
+    $('#btnBuscar').click(function(e) {
+      if ($('#clienteFactura').val() === '0') {
+        mensaje('Cliente no seleccionado', 'red');
+
+        return false;
+      }
+
+      abrirModal("{% url 'facturacion:productosFactura' %}");
+    });
+
+    $('#codigo').keypress(function(e) {
+      if (e.keyCode === 13) {
+        e.preventDefault();
+        buscarProducto();
+      }
+    });
+
+    $('#cantidad, #precio, #descuentoDetalle, #porc_iva, #monto_gravado_det').change(function() {
+      calcularDetalle();
+    });
+
+    $('#idFactura').val("{{ factura.id }}");
+    $('#clienteFactura').val("{{ factura.cliente.id }}").change();
+    $('#fecha').val("{{ factura.fecha|date:'Y-m-d' }}");
+    $('#subTotal').val({{ factura.subTotal }});
+    $('#descuento').val({{ factura.descuento }});
+    $('#total').val({{ factura.total }});
+    
+  });
+
+</script>
+{% endblock %}

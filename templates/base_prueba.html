@@ -128,6 +128,23 @@
                     </div>
                 </div>
             </li>
+
+            <li class="nav-item" >
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
+                    aria-expanded="true" aria-controls="collapseUtilities4" >
+                    <i class="far fa-calendar-check"></i>
+                    <span>Módulo Pacientes</span>
+                </a>
+                <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="{% url 'listarpacientes' %}">Pacientes</a>
+                        <a class="collapse-item" href="{% url 'listar_vacunas' %}">Vacunas</a>
+                        <a class="collapse-item" href="{% url 'listar_historial' %}">Historial</a>
+                    </div>
+                </div>
+            </li>
             <!-- Divider 
             <hr class="sidebar-divider">
 

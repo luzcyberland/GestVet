@@ -24,7 +24,6 @@ class Factura(models.Model):
 
     def save(self):
         
-        #self.subTotal = self.monto_exento + self.monto_gravado + self.monto_iva
         self.total = self.subTotal - self.descuento
 
         super(Factura, self).save()
@@ -34,6 +33,8 @@ class Factura(models.Model):
         verbose_name = "Factura"
         
 
+    
+   
 
 class DetalleFactura(models.Model):
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
@@ -90,7 +91,6 @@ def guardarDetalleFactura(sender, instance, **kwargs):
     idProducto = instance.producto.id_producto_servicio
     idFactura = instance.factura.id_factura
     factura = Factura.objects.get(pk=idFactura)
-
     if factura:
         subTotal = DetalleFactura.objects.filter(factura=idFactura).aggregate(subTotal=Sum('subTotalDetalle')).get('subTotal', 0.00)
         descuento = DetalleFactura.objects.filter(factura=idFactura).aggregate(descuento=Sum('descuentoDetalle')).get('descuento', 0.00)
@@ -112,3 +112,4 @@ def guardarDetalleFactura(sender, instance, **kwargs):
         cantidad = float(producto.existencia) - float(instance.cantidad)
         producto.existencia = cantidad
         producto.save()
+

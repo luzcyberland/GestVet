@@ -1,0 +1,56 @@
+{% extends 'base_prueba.html' %}
+
+
+{% block title %}Lista de Historiales{% endblock %}
+{% block h1 %}Lista de Historiales{% endblock %}
+    {% block table %}
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+
+        <a href="{% url 'listarpacientes' %}" class="btn btn-success btn-icon-split">
+           <span class="text">Volver</span>
+        </a>
+        
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+        <tr>
+            <th scope="col">Nombre del paciente</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Tratamiento</th>
+        </tr>
+    </thead>
+    {% if historial_list %}
+    {% for historial in historial_list %}
+        <tbody>
+        <tr>
+        <td> {{ historial.id_paciente_historial }} </td>
+        <td>{{ historial.fecha_historial }}</td>       
+        <td>{{ historial.descripcion_historial }}</td>
+        <td><a href= "{% url 'modificar_historial' historial.id_historial %}"class="btn btn-success btn-icon-split">
+              <span class="icon text-white-50">
+              |<i class="fas fa-edit"></i>
+              </span>
+              <span class="text">Editar</span>
+            </a>
+         </td>
+         <td><a href= "{% url 'eliminar_historial' historial.id_historial %}" class="btn btn-danger btn-icon-split">
+              <span class="icon text-white-50">
+              |<i class="fas fa-trash"></i>
+              </span>
+              <span class="text">Eliminar</span>
+            </a>
+         </td>
+      </tr>
+        {% endfor %}
+      {% else %}
+        <p>No hay historial</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+
+    {% endblock %}

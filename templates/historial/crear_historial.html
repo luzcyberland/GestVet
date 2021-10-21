@@ -1,0 +1,25 @@
+{% extends 'base_prueba.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %}Historial{% endblock %}
+{% block h1 %}Nuevo historial{% endblock %}
+{% block content %}
+
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Ingrese datos del historial</h6>
+  </div>
+    <div class="card-body">
+        <form  method="POST" action="{% url 'crear_historial' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <br>
+            <button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Agregar</button>
+            
+            <a href="{% url 'listar_historial'%}" class="btn btn-danger">Cancelar</a>
+          </form>
+    </div>
+</div>      
+
+
+{% endblock %}

@@ -26,6 +26,8 @@
         <td>{{paciente.id_cliente}}</td>
         <td><a class="btn btn-success btn-sm " href="{% url 'modificarpaciente' paciente.id_paciente %}">Editar</a></td>
         <td><a class="btn btn-danger btn-sm " href="{% url 'eliminarpaciente' paciente.id_paciente %}">Eliminar</a></td>
+        <td><a class="btn btn-warning btn-sm " href="{% url 'listar_vacunas_paciente' paciente.id_paciente %}">Vacunas</a></td>
+        <td><a class="btn btn-warning btn-sm " href="{% url 'listar_historial_paciente' paciente.id_paciente %}">Historial</a></td>
       </tr>
         {% endfor %}
       {% else %}

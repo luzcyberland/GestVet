@@ -2,7 +2,7 @@ from django import forms
 from django.forms import fields
 from django.forms import widgets
 from django.forms.widgets import NumberInput, Widget
-from Pacientes.models import Paciente
+from Pacientes.models import Paciente, Vacunacion, Historial
 
 class PacienteForm(forms.ModelForm):
     class Meta:
@@ -37,3 +37,26 @@ class PacienteForm(forms.ModelForm):
             'id_cliente' : forms.TextInput(attrs={'class':'form-control'})
         }
         '''
+class VacunaForm(forms.ModelForm):
+    class Meta:
+        model = Vacunacion
+        fields = (
+            'id_vacuna',
+            'fecha_vacunacion',
+            'vacuna_usada',
+            'tipo_vacuna',
+            'fecha_revacunacion',
+            'id_paciente'
+        )
+
+class HistorialForm(forms.ModelForm):
+    class Meta:
+        model = Historial
+        fields = (
+            'id_historial',
+            'fecha_historial',
+            'descripcion_historial',
+            'id_paciente_historial'
+        )
+
+

@@ -6,7 +6,7 @@ from django.urls import path, include
 from Roles.views import add_rol, RolesListView, RolUpdate, eliminar_rol
 from Usuarios.views import home, logoutUsuario, crear_usuario, UsuariosListView, UsuarioUpdate, eliminar_usuarios
 from Clientes.views import add_cliente, ClientesListView, ClienteUpdate, eliminar_cliente
-from Pacientes.views import add_paciente, PacienteUpdate, PacientesListView, eliminar_paciente
+from Pacientes.views import add_paciente, PacienteUpdate, PacientesListView, eliminar_paciente, add_vacuna, VacunaUpdate, VacunasListView, eliminar_vacuna, VacunasPacientesList, HistorialListView, HistorialUpdate, add_historial, HistorialPacientesList, eliminar_historial
 
 from Inventario.views import *
 
@@ -44,5 +44,16 @@ urlpatterns = [
     path('modificar_producto_servicio/<pk>/',login_required(ProductoServicioUpdate.as_view()), name='modificar_producto_servicio'),
     path('eliminar_producto_servicio/<int:id>/', login_required(eliminar_producto_servicio), name='eliminar_producto_servicio'),
     path('facturacion/', include(('Facturacion.urls', 'facturacion') ,namespace='facturacion')),
-    path('api/', include(('api.urls', 'api'), namespace='api'))
+    path('api/', include(('api.urls', 'api'), namespace='api')),
+    #path('pagos/', include(('Pagos.urls', 'pagos') ,namespace='pagos')),
+    path('crear_vacuna/',login_required(add_vacuna),name='crear_vacuna'),
+    path('listar_vacunas/', login_required(VacunasListView.as_view()), name='listar_vacunas'),
+    path('modificar_vacunas/<pk>/',login_required(VacunaUpdate.as_view()), name='modificar_vacuna'),
+    path('eliminar_vacuna/<int:id_vacuna>',login_required(eliminar_vacuna),name='eliminar_vacuna'),
+    path('listar_vacunas_paciente/<int:id_paciente>', login_required(VacunasPacientesList.as_view()), name='listar_vacunas_paciente'),
+    path('listar_historial/', login_required(HistorialListView.as_view()), name='listar_historial'),
+    path('modificar_historial/<pk>/',login_required(HistorialUpdate.as_view()), name='modificar_historial'),
+    path('listar_historial_paciente/<id_paciente>', login_required(HistorialPacientesList.as_view()), name="listar_historial_paciente"),
+    path('crear_historial/',login_required(add_historial),name='crear_historial'),
+    path('eliminar_historial/<int:id_historial>',login_required(eliminar_historial),name='eliminar_historial'),
     ]

@@ -1,0 +1,61 @@
+{% extends 'base_prueba.html' %}
+
+
+{% block title %}Lista de Vacunas{% endblock %}
+{% block h1 %}Lista de Vacunas{% endblock %}
+    {% block table %}
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+
+        <a href="{% url 'crear_vacuna' %}" class="btn btn-success btn-icon-split">
+          <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+           </span>
+           <span class="text">Agregar Vacuna</span>
+        </a>
+        
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+        <tr>
+          <th scope="col">Nombre del paciente</th>
+          <th scope="col">Fecha de vacunacion</th>
+          <th scope="col">Vacuna usada</th>
+          <th scope="col">Fecha de revacunación</th>
+        </tr>
+    </thead>
+        {% if vacunas_list %}
+        {% for vacuna in vacunas_list %}
+      <tbody>
+        <tr>
+        <td> {{ vacuna.id_paciente }} </td>
+        <td>{{ vacuna.fecha_vacunacion }}</td>       
+        <td>{{ vacuna.vacuna_usada }}</td> 
+        <td>{{ vacuna.fecha_revacunacion }}</td> 
+        <td><a href= "{% url 'modificar_vacuna' vacuna.id_vacuna %}"class="btn btn-success btn-icon-split">
+              <span class="icon text-white-50">
+              |<i class="fas fa-edit"></i>
+              </span>
+              <span class="text">Editar</span>
+            </a>
+         </td>
+         <td><a href= "{% url 'eliminar_vacuna' vacuna.id_vacuna %}" class="btn btn-danger btn-icon-split">
+              <span class="icon text-white-50">
+              |<i class="fas fa-trash"></i>
+              </span>
+              <span class="text">Eliminar</span>
+            </a>
+         </td>
+      </tr>
+        {% endfor %}
+      {% else %}
+        <p>No existen vacunas</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+
+    {% endblock %}

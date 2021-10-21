@@ -5,16 +5,7 @@
   {% csrf_token %}
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      
       <a href="{% url 'facturacion:listarFacturas' %}" class="btn btn-info">Cancelar</a>
-      <!-- {% for item in detalleFactura %}
-        {% if forloop.first  %}
-          <a href="{% url 'facturacion:listarFacturas' %}" class="btn btn-info">Cancelar</a>
-        {% else %}
-        <a href="{% url 'facturacion:eliminarFactura' factura.id_factura %}" class="btn btn-info">Cancelar</a>
-        {% endif %}
-      {% endfor %}
-      -->
     </div>
     <div class="card-body">
       <div class="content">   

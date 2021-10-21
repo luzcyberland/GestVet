@@ -1,0 +1,15 @@
+{% extends 'base_prueba.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %}Modificar Historial{% endblock %}
+{% block h1 %}Modificar Historial{% endblock %}
+
+{% block content %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form|crispy }}
+  <br>
+  <button type="submit" class="btn btn-success">Actualizar historial</button>
+  <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
+</form>
+{% endblock %}
