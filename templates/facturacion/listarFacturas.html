@@ -1,4 +1,5 @@
 {% extends 'base_prueba.html' %}
+{% block title %}Lista de Facturas{% endblock %}
 {% block content %}
 <div class="card shadow mb-4">
   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -20,6 +21,7 @@
           <th data-sortable="true" data-field="ïd">Nr.</th>
           <th data-sortable="true" data-field="cliente">Cliente</th>
           <th data-sortable="true" data-field="total">Total</th>
+          <th data-sortable="true" data-field="estado">Estado</th>
           <th class="all">Acciones</th>
         </tr>
       </thead>
@@ -29,9 +31,12 @@
           <td>{{ factura.id_factura }}</td>
           <td>{{ factura.cliente }}</td>
           <td>{{ factura.total }}</td>
-          <td>
+          <td>{{ factura.estado_factura }}</td>
+          <td>¨
+            {% if factura.estado_factura == 'Pendiente' %}
             <a href="{% url 'facturacion:editarFactura' factura.id_factura %}" class="btn btn-warning btn-circle"><i class="far fa-edit"></i></a>
             <a href="{% url 'facturacion:eliminarFactura' factura.id_factura %}" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+            {% endif %}
           </td>
         </tr>
         {% endfor %}

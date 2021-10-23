@@ -1,14 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'base_prueba.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}Agregar Unidad de Medida{% endblock %}
 {% block h1 %}Agregar Unidad de Medida{% endblock %}
 {% block content %}
-  <form method="post" novalidate action="{% url 'agregar_unidad_medida' %}">  
-    {% csrf_token %}
-    {{ form|crispy }}
-    <br>
-    <button type="submit" class="btn btn-success">Agregar</button>
-    <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
-  </form>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Ingrese datos de la unidad de medida</h6>
+  </div>
+    <div class="card-body">
+    <form method="post" novalidate action="{% url 'agregar_unidad_medida' %}">  
+      {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+      <button type="submit" class="btn btn-success"><span class="fa fa-save"></span>Agregar</button>
+      <a href="{% url 'listar_unidad_medida' %}" class="btn btn-danger">Cancelar</a>
+    </form>
+  </div>
+</div>
 {% endblock %}

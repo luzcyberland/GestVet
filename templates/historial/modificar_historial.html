@@ -5,11 +5,18 @@
 {% block h1 %}Modificar Historial{% endblock %}
 
 {% block content %}
-<form method="post" novalidate>
-  {% csrf_token %}
-  {{ form|crispy }}
-  <br>
-  <button type="submit" class="btn btn-success">Actualizar historial</button>
-  <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
-</form>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Ingrese los datos</h6>
+  </div>
+  <div class="card-body">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <button type="submit" class="btn btn-success">Actualizar historial</button>
+        <a href="{% url 'listar_historial'%}" class="btn btn-danger">Cancelar</a>
+      </form>
+  </div>
+</div>
 {% endblock %}

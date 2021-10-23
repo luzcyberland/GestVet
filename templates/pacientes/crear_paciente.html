@@ -1,13 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'base_prueba.html' %}
 {% load crispy_forms_tags %}
 {% block title %}Agregar Pacientes{% endblock %}
 {% block h1 %}Agregar un nuevo Paciente{% endblock %}
 {% block content %}  
-  <form method="post" novalidate action="{% url 'crearpaciente' %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <br>
-  <button type="submit" class="btn btn-success">Agregar Paciente</button>
-  <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
-  </form>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Ingrese datos del paciente</h6>
+  </div>
+    <div class="card-body">
+      <form method="post" novalidate action="{% url 'crearpaciente' %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+      <button type="submit" class="btn btn-success"><span class="fa fa-save"></span> Agregar Paciente</button>
+      <a href="{% url 'listarpacientes'%}" class="btn btn-danger">Cancelar</a>
+      </form>
+    </div>
+</div>
 {% endblock %}

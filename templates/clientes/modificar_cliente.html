@@ -1,15 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'base_prueba.html' %}
 
 {% load crispy_forms_tags %}
 {% block title %}Modificar Cliente{% endblock %}
 {% block h1 %}Modificar Cliente{% endblock %}
 
 {% block content %}
-<form method="post" novalidate>
-  {% csrf_token %}
-  {{ form|crispy }}
-  <br>
-  <button type="submit" class="btn btn-success">Actualizar cliente</button>
-  <a href="{% url 'index'%}" class="btn btn-danger">Cancelar</a>
-</form>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Ingrese los datos</h6>
+  </div>
+  <div class="card-body">
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+      <button type="submit" class="btn btn-success">Actualizar cliente</button>
+      <a href="{% url 'listarclientes'%}" class="btn btn-danger">Cancelar</a>
+    </form>
+  </div>
+</div>
 {% endblock %}

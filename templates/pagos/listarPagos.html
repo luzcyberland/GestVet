@@ -1,0 +1,51 @@
+{% extends 'base_prueba.html' %}
+{% block content %}
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Listado de Pagos</h6>
+  </div>
+  <div class="card-body">
+    {% if not pagos %}
+    <div class="alert alert-info">No se realizaron Pagos</div>
+    <div class="buttons-toolbar">
+      <a class="btn btn-success" href="{% url 'pagos:nuevoPago' %}"><i class="far fa-calendar-plus"></i> Nuevo</a>
+    </div>
+    {% else %}
+    <div class="buttons-toolbar">
+      <a class="btn btn-success" href="{% url 'pagos:nuevoPago' %}"><i class="far fa-calendar-plus"></i> Nuevo</a>
+    </div>
+    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-toggle="true" data-show-fullscreen="true" data-toolbar=".buttons-toolbar" data-locale="es-NI">
+      <thead>
+        <tr>
+          <th data-sortable="true" data-field="ïd">Nr.</th>
+          <th data-sortable="true" data-field="factura">Factura N°</th>
+          <th data-sortable="true" data-field="monto_pago">Total</th>
+          <th data-sortable="true" data-field="concepto_pago">Concepto</th>
+          <th data-sortable="true" data-field="estado_pago">Estado</th>
+          <th class="all">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for pago in pagos %}
+        <tr>
+          <td>{{ pago.id_pago }}</td>
+          <td>{{ pago.factura }}</td>
+          <td>{{ pago.monto_pago }}</td>
+          <td>{{ pago.concepto_pago }}</td>
+          <td>{{ pago.estado_pago }}</td>
+          <td>
+            {% if pago.estado_pago == 'Pendiente' %} 
+            <a href="{% url 'pagos:editarPago' pago.id_pago %}" class="btn btn-warning btn-circle"><i class="far fa-edit"></i></a>
+            <a href="{% url 'pagos:eliminarPago' pago.id_pago %}" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+ {% endif %}
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

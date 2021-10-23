@@ -1,11 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'base_prueba.html' %}
 
 
 {% block title %}Lista Producto / Servicio{% endblock %}
 {% block h1 %}Lista Producto / Servicio{% endblock %}
     {% block table %}
-    <table class = "table">
-    <a class ="btn btn-success btn-sm"  href= "{% url 'agregar_producto_servicio' %}">Agregar Nuevo</a>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a href="{% url 'agregar_producto_servicio' %}" class="btn btn-success btn-icon-split">
+          <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+           </span>
+           <span class="text">Agregar Nuevo</span>
+        </a>
+        
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
         <tr>
           <th scope="col">ID</th>
@@ -24,8 +35,18 @@
         <td> {{producto.marca}} </td>
         <td> {{producto.precio}} / {{producto.unidadMedida}}</td>
         <td> {{producto.existencia}} </td>
-        <td><a class="btn btn-success btn-sm " href="{% url 'modificar_producto_servicio' producto.id_producto_servicio %}">Editar</a></td>
-        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminar_producto_servicio' producto.id_producto_servicio %}">Eliminar</a></td>
+        <td><a class="btn btn-success btn-icon-split " href="{% url 'modificar_producto_servicio' producto.id_producto_servicio %}">
+          <span class="icon text-white-50">
+            |<i class="fas fa-edit"></i>
+            </span>
+            <span class="text">Editar</span>
+        </a></td>
+        <td><a class="btn btn-danger btn-icon-split" href="{% url 'eliminar_producto_servicio' producto.id_producto_servicio %}">
+          <span class="icon text-white-50">
+            |<i class="fas fa-trash"></i>
+            </span>
+            <span class="text">Eliminar</span>
+        </a></td>
       </tr>
         {% endfor %}
       {% else %}

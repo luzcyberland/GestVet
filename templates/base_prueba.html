@@ -68,11 +68,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="{% url 'listarroles'%}" >Listar Roles</a>
-                        
-                        <a class="collapse-item" href="{% url 'listarusuarios'%}">Listar Usuarios</a>
-                        
-                        
+                        <a class="collapse-item" href="{% url 'listarusuarios'%}">Usuarios</a>
+                        <a class="collapse-item" href="{% url 'listarroles'%}" >Roles</a>
                     </div>
                 </div>
             </li>
@@ -88,9 +85,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="utilities-border.html">Marcas</a>
-                        <a class="collapse-item" href="utilities-animation.html">Unidad de Medida</a>
-                        <a class="collapse-item" href="utilities-other.html">Productos / Servicios</a>
+                        <a class="collapse-item" href="{% url 'listar_marcas'%}">Marcas</a>
+                        <a class="collapse-item" href="{% url 'listar_unidad_medida'%}">Unidad de Medida</a>
+                        <a class="collapse-item" href="{% url 'listar_productos_servicios'%}">Productos / Servicios</a>
                     </div>
                 </div>
             </li>
@@ -106,7 +103,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
                         <a class="collapse-item" href="{% url 'facturacion:listarFacturas'%}">Facturacion</a>
-                        
+                        <a class="collapse-item" href="{% url 'pagos:listarPagos'%}">Pagos</a>
                     </div>
                 </div>
             </li>
@@ -132,7 +129,7 @@
             <li class="nav-item" >
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
                     aria-expanded="true" aria-controls="collapseUtilities4" >
-                    <i class="far fa-calendar-check"></i>
+                    <i class="fa fa-paw"></i>
                     <span>Módulo Pacientes</span>
                 </a>
                 <div id="collapseUtilities4" class="collapse" aria-labelledby="headingUtilities"
@@ -142,6 +139,20 @@
                         <a class="collapse-item" href="{% url 'listarpacientes' %}">Pacientes</a>
                         <a class="collapse-item" href="{% url 'listar_vacunas' %}">Vacunas</a>
                         <a class="collapse-item" href="{% url 'listar_historial' %}">Historial</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item" >
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities5"
+                    aria-expanded="true" aria-controls="collapseUtilities5" >
+                    <i class="fa fa-users"></i>
+                    <span>Módulo Clientes</span>
+                </a>
+                <div id="collapseUtilities5" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="{% url 'listarclientes' %}">Clientes</a>
                     </div>
                 </div>
             </li>

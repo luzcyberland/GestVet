@@ -1,11 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'base_prueba.html' %}
 
 
 {% block title %}Lista de Pacientes{% endblock %}
 {% block h1 %}Lista de Pacientes{% endblock %}
     {% block table %}
-    <table class = "table">
-    <a class ="btn btn-success btn-sm"  href= "{% url 'crearpaciente' %}">Agregar Nuevo</a>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+
+        <a href="{% url 'crearpaciente' %}" class="btn btn-success btn-icon-split">
+          <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+           </span>
+           <span class="text">Agregar Nuevo</span>
+        </a>
+        
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
         <tr>
           <th scope="col">ID</th>
@@ -24,10 +36,30 @@
         <td>{{paciente.fecha_nacimiento}}</td>
         <td>{{paciente.especie_paciente}}</td>
         <td>{{paciente.id_cliente}}</td>
-        <td><a class="btn btn-success btn-sm " href="{% url 'modificarpaciente' paciente.id_paciente %}">Editar</a></td>
-        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminarpaciente' paciente.id_paciente %}">Eliminar</a></td>
-        <td><a class="btn btn-warning btn-sm " href="{% url 'listar_vacunas_paciente' paciente.id_paciente %}">Vacunas</a></td>
-        <td><a class="btn btn-warning btn-sm " href="{% url 'listar_historial_paciente' paciente.id_paciente %}">Historial</a></td>
+        <td><a class="btn btn-success btn-icon-split" href="{% url 'modificarpaciente' paciente.id_paciente %}">
+          <span class="icon text-white-50">
+            <i class="fas fa-edit"></i>
+            </span>
+            <span class="text">Editar</span>
+        </a></td>
+        <td><a class="btn btn-danger btn-icon-split" href="{% url 'eliminarpaciente' paciente.id_paciente %}">
+          <span class="icon text-white-50">
+            <i class="fas fa-trash"></i>
+            </span>
+            <span class="text">Eliminar</span>
+        </a></td>
+        <td><a class="btn btn-warning btn-icon-split" href="{% url 'listar_vacunas_paciente' paciente.id_paciente %}">
+          <span class="icon text-white-50">
+            <i class="fa fa-medkit"></i>
+            </span>
+            <span class="text">Vacunas</span>
+        </a></td>
+        <td><a class="btn btn-info btn-icon-split" href="{% url 'listar_historial_paciente' paciente.id_paciente %}">
+          <span class="icon text-white-50">
+            <i class="fa fa-file-text"></i>
+            </span>
+            <span class="text">Historial</span>
+        </a></td>
       </tr>
         {% endfor %}
       {% else %}

@@ -17,7 +17,11 @@ class Factura(models.Model):
     monto_exento = models.FloatField(default=0)
     monto_iva = models.FloatField(default=0)
     monto_gravado= models.FloatField(default=0)
-
+    PEN = 'Pendiente'
+    PAG = 'Pagado'
+    CAN = 'Cancelado'
+    ESTADOS_FACTURA = [(PEN, 'Pendiente'), (PAG, 'Pagado'), (CAN,'Cancelado')]
+    estado_factura = models.CharField(max_length=20, choices=ESTADOS_FACTURA, default=PEN)
 
     def __str__(self):
         return '{}'.format(self.id_factura)

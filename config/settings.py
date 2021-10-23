@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'Pacientes',
     'Inventario',
     'Facturacion',
+    'Pagos'
 
 
 ]

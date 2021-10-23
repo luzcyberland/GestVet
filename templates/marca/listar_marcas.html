@@ -1,11 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'base_prueba.html' %}
 
 
 {% block title %}Lista de Marcas{% endblock %}
 {% block h1 %}Lista de Marcas{% endblock %}
     {% block table %}
-    <table class = "table">
-    <a class ="btn btn-success btn-sm"  href= "{% url 'agregar_marca' %}">Agregar Nuevo</a>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a class ="btn btn-success btn-icon-split"  href= "{% url 'agregar_marca' %}">
+          <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span class="text">Añadir Marca</span>
+        </a>
+      </div>
+    <div class="card-body">
+    <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
         <tr>
           <th scope="col">ID</th>
@@ -18,8 +28,19 @@
         <tr>
         <th scope="row">{{marca.id_marca}}</th>
         <td> {{marca.descripcion}} </td>
-        <td><a class="btn btn-success btn-sm " href="{% url 'modificar_marca' marca.id_marca %}">Editar</a></td>
-        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminar_marca' marca.id_marca %}">Eliminar</a></td>
+        <td><a class="btn btn-success btn-icon-split " href="{% url 'modificar_marca' marca.id_marca %}">
+          <span class="icon text-white-50">
+            |<i class="fas fa-edit"></i>
+            </span>
+            <span class="text">Editar</span>
+        </a>
+        </td>
+        <td><a class="btn btn-danger btn-icon-split " href="{% url 'eliminar_marca' marca.id_marca %}">
+          <span class="icon text-white-50">
+            |<i class="fas fa-trash"></i>
+            </span>
+            <span class="text">Eliminar</span>
+        </a></td>
       </tr>
         {% endfor %}
       {% else %}

@@ -1,11 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'base_prueba.html' %}
 
 
-{% block title %}Lista Unidad de Medida{% endblock %}
-{% block h1 %}Lista Unidad de Medida{% endblock %}
+{% block title %}Unidad de Medida{% endblock %}
+{% block h1 %}Unidad de Medida{% endblock %}
     {% block table %}
-    <table class = "table">
-    <a class ="btn btn-success btn-sm"  href= "{% url 'agregar_unidad_medida' %}">Agregar Nuevo</a>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a class ="btn btn-success btn-icon-split"  href= "{% url 'agregar_unidad_medida' %}">
+          <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span class="text">Agregar Nuevo</span>
+        </a>
+      </div>
+    <div class="card-body">
+    <div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
         <tr>
           <th scope="col">ID</th>
@@ -18,8 +28,18 @@
         <tr>
         <th scope="row">{{unidad.id_unidad_medida}}</th>
         <td> {{unidad.descripcion}} </td>
-        <td><a class="btn btn-success btn-sm " href="{% url 'modificar_unidad_medida' unidad.id_unidad_medida %}">Editar</a></td>
-        <td><a class="btn btn-danger btn-sm " href="{% url 'eliminar_unidad_medida' unidad.id_unidad_medida %}">Eliminar</a></td>
+        <td><a class="btn btn-success btn-icon-split" href="{% url 'modificar_unidad_medida' unidad.id_unidad_medida %}">
+          <span class="icon text-white-50">
+            |<i class="fas fa-edit"></i>
+            </span>
+            <span class="text">Editar</span>
+        </a></td>
+        <td><a class="btn btn-danger bbtn-icon-split" href="{% url 'eliminar_unidad_medida' unidad.id_unidad_medida %}">
+          <span class="icon text-white-50">
+            |<i class="fas fa-trash"></i>
+            </span>
+            <span class="text">Eliminar</span>
+        </a></td>
       </tr>
         {% endfor %}
       {% else %}
