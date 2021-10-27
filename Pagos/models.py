@@ -4,7 +4,7 @@ from django.db.models.fields import AutoField
 from Facturacion.models import Factura
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-import re
+
 # Create your models here.
 
 class Pagos(models.Model):
@@ -23,7 +23,7 @@ class Pagos(models.Model):
         return '{}'.format(self.id_pago)
     
     def save(self):
-        #self.estado_pago = 'Pagado'
+        self.estado_pago = 'Pagado'
         '''factura_buscar = re.findall('[0-9]', str(self.factura))
         id_pago_factura = int(''.join(factura_buscar))
 
@@ -39,7 +39,7 @@ def guardarEstadoFactura(sender, instance, **kwargs):
         factura.estado_factura = 'Pagado'
         factura.save()
 
-   
+
 
     
 

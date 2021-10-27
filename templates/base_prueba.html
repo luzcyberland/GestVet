@@ -21,6 +21,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.css'%}" rel="stylesheet">
+    
 
 </head>
 
@@ -103,7 +104,22 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
                         <a class="collapse-item" href="{% url 'facturacion:listarFacturas'%}">Facturacion</a>
-                        <a class="collapse-item" href="{% url 'pagos:listarPagos'%}">Pagos</a>
+                        <a class="collapse-item" href="{% url 'pagos:listarPagos'%}">Pagos recibidos</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities6"
+                    aria-expanded="true" aria-controls="collapseUtilities2">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Módulo Compras</span>
+                </a>
+                <div id="collapseUtilities6" class="collapse" aria-labelledby="headingUtilities6"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="{% url 'listarproveedores' %}">Proveedores</a>
+                        <a class="collapse-item" href="{% url 'compras:listarFacturas'%}">Factura de compras</a>
                     </div>
                 </div>
             </li>
@@ -118,10 +134,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="#"></a>
-                        <a class="collapse-item" href="#"></a>
-                        <a class="collapse-item" href="#"></a>
-                        <a class="collapse-item" href="#"></a>
+                        <a class="collapse-item" href="{% url 'cal:calendar'%}">Agendamiento</a>
                     </div>
                 </div>
             </li>

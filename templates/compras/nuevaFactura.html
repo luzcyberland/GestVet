@@ -6,8 +6,7 @@
   {% csrf_token %}
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <a href="{% url 'facturacion:listarFacturas' %}" class="btn btn-info">Volver</a>
-      
+      <a href="{% url 'compras:listarFacturas' %}" class="btn btn-info">Volver</a>
     </div>
     <div class="card-body">
       <div class="content">   
@@ -16,13 +15,13 @@
             <div class="content">
               <div class="row">
                 <div class="col-lg-1">Nr.</div>
-                <div class="col-lg-4"><input type="text"  class="form-control form-control-user" value="{{ factura.id_factura }}" readonly></div>
-                <div class="col-lg-2">Cliente:</div>
+                <div class="col-lg-4"><input type="text"  class="form-control form-control-user" value="{{ factura.id_factura_compra }}" readonly></div>
+                <div class="col-lg-2">Proveedor:</div>
                 <div class="col-lg-5 form-group">
-                  <select name="cliente" id="clienteFactura" class="form-control" required>
-                    <option value="">Seleccione el cliente</option>
-                    {% for cliente in clientes %}
-                    <option value="{{ cliente.id_cliente }}">{{ cliente.nombre_cliente }} {{ cliente.apellido_cliente }}</option>
+                  <select name="proveedor" id="proveedorFactura" class="form-control" required>
+                    <option value="">Seleccione el proveedor</option>
+                    {% for proveedor in proveedores %}
+                    <option value="{{ proveedor.id_proveedor }}">RUC: {{ proveedor.ruc_proveedor }} || {{ proveedor.nombre_proveedor }}</option>
                     {% endfor %}
                   </select>
                 </div>
@@ -33,6 +32,10 @@
                     <div class="col-lg-2">Fecha:</div>
                     <div class="col-lg-8 form-group">
                       <input type="text" name="fecha" id="fecha" class="form-control form-control-user" value="{{ factura.fecha|date:'Y-m-d' }}" readonly>
+                    </div>
+                    <div class="col-lg-3">Fecha de factura:</div>
+                    <div class="col-lg-8 form-group">
+                      <input type="date" name="fecha_factura" id="fecha_factura" required>
                     </div>
                   </div>
                 </div>
@@ -276,11 +279,12 @@
     });
 
     $('#idFactura').val("{{ factura.id }}");
-    $('#clienteFactura').val("{{ factura.cliente.id }}").change();
+    $('#proveedorFactura').val("{{ factura.proveedor.id }}").change();
     $('#fecha').val("{{ factura.fecha|date:'Y-m-d' }}");
-    $('#subTotal').val({{ factura.subTotal }});
-    $('#descuento').val({{ factura.descuento }});
-    $('#total').val({{ factura.total }});
+    $('#fecha_factura').val("{{ factura.fecha_factura }}");
+    $('#subTotal').val({{ facturacompra.subTotal }});
+    $('#descuento').val({{ facturacompra.descuento }});
+    $('#total').val({{ facturacompra.total }});
     
   });
 
@@ -291,7 +295,7 @@
       type: 'red',
       title: 'Eliminar item de factura',
       /*title: 'Confirmación requerida',*/
-      content: 'url:/facturacion/facturas/borrarDetalleFactura/' + id,
+      content: 'url:/compras/compras/borrarDetalleFactura/' + id,
       /*onContentReady: function() {
         this.$content.find('#usuario').val('{{ user.username }}');
         this.$content.find('#usuario').select();

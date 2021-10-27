@@ -6,6 +6,7 @@ from django.urls import path, include
 from Roles.views import add_rol, RolesListView, RolUpdate, eliminar_rol
 from Usuarios.views import home, logoutUsuario, crear_usuario, UsuariosListView, UsuarioUpdate, eliminar_usuarios
 from Clientes.views import add_cliente, ClientesListView, ClienteUpdate, eliminar_cliente
+from Proveedores.views import add_proveedor, ProveedoresListView, ProveedorUpdate, eliminar_proveedor
 from Pacientes.views import add_paciente, PacienteUpdate, PacientesListView, eliminar_paciente, add_vacuna, VacunaUpdate, VacunasListView, eliminar_vacuna, VacunasPacientesList, HistorialListView, HistorialUpdate, add_historial, HistorialPacientesList, eliminar_historial
 
 from Inventario.views import *
@@ -56,4 +57,10 @@ urlpatterns = [
     path('listar_historial_paciente/<id_paciente>', login_required(HistorialPacientesList.as_view()), name="listar_historial_paciente"),
     path('crear_historial/',login_required(add_historial),name='crear_historial'),
     path('eliminar_historial/<int:id_historial>',login_required(eliminar_historial),name='eliminar_historial'),
+    path('citas/', include('Calendario.urls', namespace='cal')),
+    path('crear_proveedor/',login_required(add_proveedor),name='crearproveedor'),
+    path('listar_proveedores/',login_required(ProveedoresListView.as_view()),name='listarproveedores'),
+    path('modificar_proveedor/<pk>',login_required(ProveedorUpdate.as_view()),name='modificarproveedor'),
+    path('eliminar_proveedor/<int:id_proveedor>/',login_required(eliminar_proveedor), name='eliminarproveedor'),
+    path('compras/', include(('Compras.urls', 'compras') ,namespace='compras'))
     ]

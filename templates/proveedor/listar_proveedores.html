@@ -1,0 +1,60 @@
+{% extends 'base_prueba.html' %}
+
+
+{% block title %}Lista de Proveedores{% endblock %}
+{% block h1 %}Lista de Proveedores{% endblock %}
+    {% block table %}
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+
+        <a href="{% url 'crearproveedor' %}" class="btn btn-success btn-icon-split">
+          <span class="icon text-white-50">
+              <i class="fas fa-plus"></i>
+           </span>
+           <span class="text">Agregar</span>
+        </a>
+        
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+        <tr>
+          <th >ID</th>
+          <th >RUC</th>
+          <th >Nombre</th>
+
+        </tr>
+    </thead>
+      {% if proveedores_list %}
+        {% for proveedor in proveedores_list %}
+          <tbody>
+            <tr>
+            <th scope="row">{{proveedor.id_proveedor}}</th>
+            <td> {{proveedor.ruc_proveedor}} </td>
+            <td>{{proveedor.nombre_proveedor}}</td>
+            <td><a href= "{% url 'modificarproveedor' proveedor.id_proveedor %}" class="btn btn-success btn-icon-split">
+                  <span class="icon text-white-50">
+                  |<i class="fas fa-edit"></i>
+                  </span>
+                  <span class="text">Editar</span>
+                </a>
+            </td>
+            <td><a href= "{% url 'eliminarproveedor' proveedor.id_proveedor %}" class="btn btn-danger btn-icon-split">
+                  <span class="icon text-white-50">
+                  |<i class="fas fa-trash"></i>
+                  </span>
+                  <span class="text">Eliminar</span>
+                </a>
+            </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <p>No existen Proveedores</p>
+      {% endif %}
+       </tbody>
+    </table>
+    <div class="container">
+  </div>
+
+    {% endblock %}
