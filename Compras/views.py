@@ -38,6 +38,7 @@ def nuevaFactura(request, id=None):
                 'id_factura_compra': 0,
                 'fecha': datetime.today(),
                 'fecha_factura': '',
+                'numero_factura': '',
                 'proveedor': 0,
                 'subTotal': 0.00,
                 'descuento': 0.00,
@@ -53,6 +54,7 @@ def nuevaFactura(request, id=None):
                 'id_factura_compra': factura.id_factura_compra,
                 'fecha': factura.fecha,
                 'fecha_factura': factura.fecha_factura,
+                'numero_factura': factura.numero_factura,
                 'proveedor': factura.proveedor,
                 'subTotal': factura.subTotal,
                 'descuento': factura.descuento,
@@ -76,10 +78,11 @@ def nuevaFactura(request, id=None):
         idProveedor = request.POST.get("proveedor")
         fecha = request.POST.get("fecha")
         fecha_factura = request.POST.get("fecha_factura")
+        numero_factura = request.POST.get("numero_factura")
         proveedor = Proveedor.objects.get(pk=idProveedor)
 
         if not id:
-            factura = FacturaCompra(proveedor=proveedor, fecha=fecha, fecha_factura = fecha_factura)
+            factura = FacturaCompra(proveedor=proveedor, fecha=fecha, fecha_factura = fecha_factura, numero_factura = numero_factura)
 
             if factura:
                 factura.save()

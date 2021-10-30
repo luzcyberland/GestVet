@@ -37,6 +37,10 @@
                     <div class="col-lg-8 form-group">
                       <input type="date" name="fecha_factura" id="fecha_factura" required>
                     </div>
+                    <div class="col-lg-4">Número de factura:</div>
+                    <div class="col-lg-8 form-group">
+                      <input type="text" name="numero_factura" id="numero_factura" required>
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-6 p-2 form-group">
@@ -282,6 +286,7 @@
     $('#proveedorFactura').val("{{ factura.proveedor.id }}").change();
     $('#fecha').val("{{ factura.fecha|date:'Y-m-d' }}");
     $('#fecha_factura').val("{{ factura.fecha_factura }}");
+    $('#numero_factura').val("{{ factura.numero_factura }}");
     $('#subTotal').val({{ facturacompra.subTotal }});
     $('#descuento').val({{ facturacompra.descuento }});
     $('#total').val({{ facturacompra.total }});

@@ -2,9 +2,10 @@ from datetime import datetime, timedelta, date
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 import calendar
+from django.shortcuts import render, redirect
 
 from .models import *
 from Calendario.utils import Calendar
@@ -56,3 +57,10 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('cal:calendar'))
     return render(request, 'cal/event.html', {'form': form})
+
+'''
+class EventDeleteView(generic.DeleteView):
+    model = Event
+    template_name = 'event_delete.html'
+    success_url = reverse_lazy('cal:calendar')
+'''

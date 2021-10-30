@@ -11,17 +11,14 @@ class FacturaCompra(models.Model):
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     fecha = models.DateTimeField(auto_now_add=True)
     fecha_factura = models.DateTimeField()
+    numero_factura = models.CharField(max_length=50)
     subTotal = models.FloatField(default=0)
     descuento = models.FloatField(default=0)
     total = models.FloatField(default=0)
     monto_exento = models.FloatField(default=0)
     monto_iva = models.FloatField(default=0)
     monto_gravado= models.FloatField(default=0)
-    PEN = 'Pendiente'
-    PAG = 'Pagado'
-    CAN = 'Cancelado'
-    ESTADOS_FACTURA_COMPRA = [(PEN, 'Pendiente'), (PAG, 'Pagado'), (CAN,'Cancelado')]
-    estado_factura_compra = models.CharField(max_length=20, choices=ESTADOS_FACTURA_COMPRA, default=PEN)
+    
 
     def __str__(self):
         return '{}'.format(self.id_factura_compra)
