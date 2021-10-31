@@ -16,20 +16,25 @@ body { background: #FFF; border-radius: 1px; box-shadow: 0 0 1in -0.25in rgba(0,
 
 /* header */
 
-header { margin: 0 0 3em; }
+header { margin: 0 0 2em; }
 header:after { clear: both; content: ""; display: table; }
 
-header h1 { background: #530303; border-radius: 0.25em; color: #FFF; margin: 0 0 1em; padding: 0.5em 0; }
-header address { float: left; font-size: 95%; font-style: normal; line-height: 1.25; margin: 0 1em 1em 0; }
+header h1 { background: #109DEF; border-radius: 0.25em; color: #FFF; margin: 0 0 2em; padding: 0.6em 0; }
+header address { float: right; font-size: 95%; font-style: normal; line-height: 1.25; margin: 0 1em 2em 0; }
 article address.norm h4 {
 	font-size: 125%;
 	font-weight: bold;
 }
 article address.norm { float: left; font-size: 95%; font-style: normal; font-weight: normal; line-height: 1.25; margin: 0 1em 1em 0; }
-header address p { margin: 0 0 0.25em; }
-header span, header img { display: block; float: right; }
+header address p { display: block;
+	margin-top:0;
+	margin-bottom: 0;
+	margin-left: 1em;
+	margin-right: 1em;float:left;}
+header span, header, img { display: block; float: left; }
+
 header span { margin: 0 0 1em 1em; max-height: 25%; max-width: 60%; position: relative; }
-header img { max-height: 100%; max-width: 100%; }
+header img { max-height: 100%; max-width: 100%;float:left;}
 header input { cursor: pointer; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; height: 100%; left: 0; opacity: 0; position: absolute; top: 0; width: 100%; }
 
 /* article */

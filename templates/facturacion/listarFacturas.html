@@ -35,12 +35,13 @@
           <td>{{ factura.estado_factura }}</td>
           <td>{{ factura.nro_factura }}</td>
           <td>
-            
+            {% if factura.estado_factura == 'Pendiente'%}
             <a href="{% url 'facturacion:editarFactura' factura.id_factura %}" class="btn btn-warning btn-circle"><i class="far fa-edit"></i></a>
             <a href="{% url 'facturacion:eliminarFactura' factura.id_factura %}" class="btn btn-danger btn-circle" target="popup" ><i class="fas fa-trash"></i></a>
-            
-            <a href="{% url 'facturacion:imprimirFactura' factura.id_factura %}" class="btn btn-success" target="_factura">Imprimir</a>
-           
+            <a href="{% url 'facturacion:imprimirFactura' factura.id_factura %}" class="btn btn-success btn-circle" target="_factura"><i class="fas fa-print"></i></a>
+            {%else%}
+            <a href="{% url 'facturacion:imprimirFactura' factura.id_factura %}" class="btn btn-success btn-circle" target="_factura"><i class="fas fa-print"></i></a>
+            {%endif%}
           </td>
         </tr>
         {% endfor %}
