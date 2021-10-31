@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, date
+from . import forms
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
@@ -58,9 +59,9 @@ def event(request, event_id=None):
         return HttpResponseRedirect(reverse('cal:calendar'))
     return render(request, 'cal/event.html', {'form': form})
 
-'''
-class EventDeleteView(generic.DeleteView):
-    model = Event
-    template_name = 'event_delete.html'
-    success_url = reverse_lazy('cal:calendar')
-'''
+
+def eliminarEvent(request, id_event):
+    req = Event.objects.get(id=id_event)
+    req.delete()
+    return redirect('calendar')
+

@@ -36,4 +36,4 @@ class Event(models.Model):
                 if self.check_overlap(event.start_time, event.end_time, self.start_time, self.end_time):
                     raise ValidationError(
                         'Ya hay otra cita en esta hora: ' +
-                            event.start_time.strftime(r"%m/%d/%Y, %H:%M:%S")+ '-' + event.end_time.strftime(r"%m/%d/%Y, %H:%M:%S"))
+                            event.start_time.strftime(r"%m/%d/%Y, %H:%M:%S")+ '---' + event.end_time.strftime(r"%m/%d/%Y, %H:%M:%S"))

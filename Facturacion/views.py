@@ -7,24 +7,22 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from datetime import datetime
-from .models import Cliente, Factura, DetalleFactura
 from Inventario.models import ProductoServicio
 import Inventario.views as inventario
 from django.contrib import messages
 from Clientes.models import Cliente
 from custom_decorators.decorators_2 import rol_required
 from django.utils.decorators import method_decorator
-from Facturacion.models import Factura, DetalleFactura
+from Facturacion.models import Factura, DetalleFactura, Timbrado
+from Facturacion.forms import TimbradoForm
+from django.views.generic import UpdateView, ListView
 
-# Create your views here.
+
 @method_decorator(rol_required('Recepcion'), name='dispatch')
 class listarFacturas(generic.ListView):
     model = Factura
     template_name = "facturacion/listarFacturas.html"
     context_object_name = "facturas"
-
-
-
 
 @rol_required('Recepcion')
 def nuevaFactura(request, id=None):
@@ -38,6 +36,9 @@ def nuevaFactura(request, id=None):
         if not factura:
             encabezado = {
                 'id_factura': 0,
+                'timbrado':0,
+                'nro_factura':0,
+                'ruc':'',
                 'fecha': datetime.today(),
                 'cliente': 0,
                 'subTotal': 0.00,
@@ -52,6 +53,9 @@ def nuevaFactura(request, id=None):
         else:
             encabezado = {
                 'id_factura': factura.id_factura,
+                'timbrado':factura.timbrado,
+                'nro_factura':factura.nro_factura,
+                'ruc':factura.ruc,
                 'fecha': factura.fecha,
                 'cliente': factura.cliente,
                 'subTotal': factura.subTotal,
@@ -153,3 +157,50 @@ def eliminar_factura(request, id_factura):
     else:
         return redirect('facturacion:listarFacturas')
     
+######################################################################
+#                        vistas para el timbrado                    #
+#####################################################################
+@rol_required('Recepcion')
+def add_timbrado(request):
+    form = ""
+    if request.method == 'POST':
+        form = TimbradoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/listar_timbrados/')
+    else: 
+        form=TimbradoForm
+    return render(request,'facturacion/crear_timbrado.html',{'form':form})
+
+
+@method_decorator(rol_required('Recepcion'), name='dispatch')
+class TimbradosListView(generic.ListView):
+    model = Timbrado
+    context_object_name = 'timbrados_list' 
+    template_name = 'facturacion/listar_timbrados.html'
+
+    def get_queryset(self):
+        return Timbrado.objects.all()
+
+@method_decorator(rol_required('Recepcion'), name='dispatch')
+class TimbradoUpdate(UpdateView):
+    model = Timbrado
+    fields = ['id_timbrado',
+            'codigo_timbrado', 
+            'establecimiento',
+            'punto_de_emision',
+            'numero_inicio',
+            'numero_fin',
+            'numero_actual',
+            'fecha_vencimiento',
+            'estado',
+            'ruc' ]
+    template_name = 'facturacion/modificar_timbrado.html'
+    success_url=reverse_lazy('listartimbrados')
+
+@rol_required('Recepcion')
+def eliminar_timbrado(request, id_timbrado):
+    req = Timbrado.objects.get(id_timbrado=id_timbrado)
+    req.delete()
+    return redirect('/listar_timbrados/')
+

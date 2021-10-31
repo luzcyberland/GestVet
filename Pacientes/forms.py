@@ -3,6 +3,7 @@ from django.forms import fields
 from django.forms import widgets
 from django.forms.widgets import NumberInput, Widget
 from Pacientes.models import Paciente, Vacunacion, Historial
+from django.forms import ModelForm, DateInput
 
 class PacienteForm(forms.ModelForm):
     class Meta:
@@ -26,17 +27,17 @@ class PacienteForm(forms.ModelForm):
             'especie_paciente' : 'Especie paciente',
             'id_cliente' : 'Dueño'
         }
-        '''
+        
         widgets = {
-            'id_paciente' : forms.NumberInput,
-            'nombre_paciente' : forms.TextInput(attrs={'class':'form-control'}),
-            'fecha_nacimiento' : forms.DateInput,
-            'sexo_paciente' : forms.TextInput(attrs={'class':'form-control'}),
-            'raza_paciente' : forms.TextInput(attrs={'class':'form-control'}),
-            'especie_paciente' : forms.TextInput(attrs={'class':'form-control'}),
-            'id_cliente' : forms.TextInput(attrs={'class':'form-control'})
+           # 'id_paciente' : forms.NumberInput,
+            #'nombre_paciente' : forms.TextInput(attrs={'class':'form-control'}),
+            'fecha_nacimiento': DateInput(attrs={'type': 'datetime-local'}, format=r'%Y-%m-%d')
+            #'sexo_paciente' : forms.TextInput(attrs={'class':'form-control'}),
+            #'raza_paciente' : forms.TextInput(attrs={'class':'form-control'}),
+            #'especie_paciente' : forms.TextInput(attrs={'class':'form-control'}),
+            #'id_cliente' : forms.TextInput(attrs={'class':'form-control'})
         }
-        '''
+        
 class VacunaForm(forms.ModelForm):
     class Meta:
         model = Vacunacion

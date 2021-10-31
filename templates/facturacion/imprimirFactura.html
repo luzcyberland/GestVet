@@ -1,79 +1,110 @@
 {% load static %}
+{% load mathfilters %}
 <html lang="es">
 <link href="{% static 'css/recibo.css'%}" rel="stylesheet">
+
+
+		
 <!------ Include the above in your HEAD tag ---------->
-<body>
+<body onload="window.print()">
 		<header>
 			<h1>Factura de Ventas</h1>
-			<address >
-				<p> alexandercross202@gmail.com </p>
-				<p> 45189, Research Place, Suite 150A </p>
-				<p> P: 1-800-961-4952 </p>
-				<p> Business Number: 0-808-234-2380 </p>
+			<img alt="it" src={% static 'img/Gestvet.png'%} width="150" height="150"align="center">
+			<address>
+			
+				<p style="text-align:left"> de Gladys Concepción Sosa de Acosta </p>
+				<p style="text-align:center">  Productos Veterinarios - Servicios </p>
+				<p style="text-align:center">  Anexo. Clinica Veterinaria </p>
+				<p style="text-align:left">  San Lorenzo c/ Azara 1225 (021) 584 820 </p>
+				<p style="text-align:center"> San Lorenzo - Paraguay </p>	
+						
 			</address>
-			<span><img alt="it" src="pdf_logo.png"></span>
+			
 		</header>
 		<article>
 			<h1>Recipient</h1>
 			<address class="norm">
-				<h4>Jan Denean Banister</h4>
-				<p> name@client.com <br>
-				<p> 1613 bethany church road,belton,South <br>
-				<p> Carolina,29627,USA <br>
-				<p> Phone: 1-864-933-0793</p>
+				<h4>Cliente: {{ factura.cliente }}</h4>
+				<p> RUC: {{ factura.cliente.ruc_cliente }} <br>
+				<p> Dirección : {{ factura.cliente.direccion_cliente }} <br>
+				<p> Telefono: {{ factura.cliente.telefono_cliente }}  <br>
+				
 			</address>
 			
 			<table class="meta">
 				<tr>
 					<th><span >Factura#</span></th>
-					<td><span >101138</span></td>
+					<td><span >{{ factura.nro_factura}}</span></td>
 				</tr>
 				<tr>
 					<th><span >Fecha</span></th>
-					<td><span >January 1, 2019</span></td>
+					<td><span >{{ factura.fecha|date:'Y-m-d' }}</span></td>
 				</tr>
 				<tr>
-					<th><span>Total</span></th>
-					<td><span id="prefix" >$</span><span>600.00</span></td>
+					
 				</tr>
 			</table>
 			<table class="inventory">
 				<thead>
 					<tr>
 						<th><span >Cód</span></th>
-						<th><span >Descripción</span></th>
+						<th colspan="5">Descripción</th>
 						<th><span >Cantidad</span></th>
 						<th><span >Precio Unitario</span></th>
-            <th><span >Exentas</span></th>
-            <th><span >IVA  5%</span></th>
-            <th><span >IVA  10%</span></th>
-						<th><span >Total</span></th>
+            			<th><span >Exentas</span></th>
+            			<th><span >IVA  5%</span></th>
+            			<th><span >IVA  10%</span></th>
+						
 					</tr>
 				</thead>
 				<tbody>
+					{% for item in detalleFactura %}
+        			<tr>
+          				<td>{{ item.producto.id_producto_servicio }}</td>
+         				<td colspan="5">{{ item.producto }}</td>
+          				<td>{{ item.cantidad|floatformat}}</td>
+          				<td>{{ item.precio|floatformat}}</td>
+          				<td>{{ item.monto_exento_det|floatformat}}</td>
+          				<td>{{ item.monto_gravado_det|floatformat}}</td>
+          				<td>{{ item.monto_iva_det|floatformat}}</td>
+					</tr>
+					 {% endfor %}
+					 <tr>
+						<td colspan="8"><strong> Sub Totales <strong> </td>
+						<td>  {{factura.monto_exento|floatformat}} </td>
+						<td> {{factura.monto_gravado|floatformat}}</td>
+						<td> {{factura.monto_iva|floatformat}}</td>
+					 </tr>
 					<tr>
-						<td><span >1</span></td>
-						<td><span >Alimento para perros</span></td>
-						<td><span >2</span></td>
-						<td><span >10.000</span></td>
-						<td><span >0</span></td>
-						<td><span >0</span></td>
-						<td><span >1000</span></td>
-						<td><span>20.000</span></td>
+						<td colspan="10"><strong> Total a pagar Gs. <span id="texto"></span> <strong></td>
+						<td>  {{factura.total|floatformat}} </td>
 					</tr>
 				</tbody>
 			</table>
 			<table class="sign">
 				<tr>
-					<td><img src="signature.png" alt="sdd"></td>
+					
 				</tr>
 			</table>
 
-			<table class="balance">
-				<tr>
-					<th><span >Total</span></th>
-					<td><span data-prefix>$</span><span>600.00</span></td>
-				</tr>
+			<table class="inventory">
+				<tbody>
+									 
+						<td colspan="8"><strong> Liquidación del IVA <strong> </td>
+						{% with numerator=factura.monto_gravado denominator=21%}
+						<td> <strong><span data-prefix>5% &nbsp;&nbsp;</span></strong>{{numerator|div:denominator|floatformat}}</td>
+						{% endwith %}
+
+
+						{% with numerator=factura.monto_iva denominator=11%}
+						<td> <strong><span data-prefix>10% &nbsp;&nbsp;</span></strong>{{numerator|div:denominator|floatformat}}</td>
+						{% endwith %}
+
+						{% with monto_gravado=factura.monto_gravado|div:21 monto_iva=factura.monto_iva|div:11%}
+						<td> <strong><span data-prefix>Total IVA &nbsp;&nbsp;</span></strong>{{monto_gravado|add:monto_iva|floatformat}}</td>
+						{% endwith %}
+					 
+				</tbody>
 			</table>
 		</article>
 		<aside>
@@ -84,3 +115,170 @@
 		</aside>
 </body>
 </html>
+
+
+<script>
+	
+		document.getElementById("texto").innerHTML=NumeroALetras({{ factura.total}});
+	 
+	 
+	function Unidades(num){
+	 
+	  switch(num)
+	  {
+		case 1: return "UN";
+		case 2: return "DOS";
+		case 3: return "TRES";
+		case 4: return "CUATRO";
+		case 5: return "CINCO";
+		case 6: return "SEIS";
+		case 7: return "SIETE";
+		case 8: return "OCHO";
+		case 9: return "NUEVE";
+	  }
+	 
+	  return "";
+	}
+	 
+	function Decenas(num){
+	 
+	  decena = Math.floor(num/10);
+	  unidad = num - (decena * 10);
+	 
+	  switch(decena)
+	  {
+		case 1:
+		  switch(unidad)
+		  {
+			case 0: return "DIEZ";
+			case 1: return "ONCE";
+			case 2: return "DOCE";
+			case 3: return "TRECE";
+			case 4: return "CATORCE";
+			case 5: return "QUINCE";
+			default: return "DIECI" + Unidades(unidad);
+		  }
+		case 2:
+		  switch(unidad)
+		  {
+			case 0: return "VEINTE";
+			default: return "VEINTI" + Unidades(unidad);
+		  }
+		case 3: return DecenasY("TREINTA", unidad);
+		case 4: return DecenasY("CUARENTA", unidad);
+		case 5: return DecenasY("CINCUENTA", unidad);
+		case 6: return DecenasY("SESENTA", unidad);
+		case 7: return DecenasY("SETENTA", unidad);
+		case 8: return DecenasY("OCHENTA", unidad);
+		case 9: return DecenasY("NOVENTA", unidad);
+		case 0: return Unidades(unidad);
+	  }
+	}//Unidades()
+	 
+	function DecenasY(strSin, numUnidades){
+	  if (numUnidades > 0)
+		return strSin + " Y " + Unidades(numUnidades)
+	 
+	  return strSin;
+	}//DecenasY()
+	 
+	function Centenas(num){
+	 
+	  centenas = Math.floor(num / 100);
+	  decenas = num - (centenas * 100);
+	 
+	  switch(centenas)
+	  {
+		case 1:
+		  if (decenas > 0)
+			return "CIENTO " + Decenas(decenas);
+		  return "CIEN";
+		case 2: return "DOSCIENTOS " + Decenas(decenas);
+		case 3: return "TRESCIENTOS " + Decenas(decenas);
+		case 4: return "CUATROCIENTOS " + Decenas(decenas);
+		case 5: return "QUINIENTOS " + Decenas(decenas);
+		case 6: return "SEISCIENTOS " + Decenas(decenas);
+		case 7: return "SETECIENTOS " + Decenas(decenas);
+		case 8: return "OCHOCIENTOS " + Decenas(decenas);
+		case 9: return "NOVECIENTOS " + Decenas(decenas);
+	  }
+	 
+	  return Decenas(decenas);
+	}//Centenas()
+	 
+	function Seccion(num, divisor, strSingular, strPlural){
+	  cientos = Math.floor(num / divisor)
+	  resto = num - (cientos * divisor)
+	 
+	  letras = "";
+	 
+	  if (cientos > 0)
+		if (cientos > 1)
+		  letras = Centenas(cientos) + " " + strPlural;
+		else
+		  letras = strSingular;
+	 
+	  if (resto > 0)
+		letras += "";
+	 
+	  return letras;
+	}//Seccion()
+	 
+	function Miles(num){
+	  divisor = 1000;
+	  cientos = Math.floor(num / divisor)
+	  resto = num - (cientos * divisor)
+	 
+	  strMiles = Seccion(num, divisor, "MIL", "MIL");
+	  strCentenas = Centenas(resto);
+	 
+	  if(strMiles == "")
+		return strCentenas;
+	 
+	  return strMiles + " " + strCentenas;
+	 
+	  //return Seccion(num, divisor, "UN MIL", "MIL") + " " + Centenas(resto);
+	}//Miles()
+	 
+	function Millones(num){
+	  divisor = 1000000;
+	  cientos = Math.floor(num / divisor)
+	  resto = num - (cientos * divisor)
+	 
+	  strMillones = Seccion(num, divisor, "UN MILLON", "MILLONES");
+	  strMiles = Miles(resto);
+	 
+	  if(strMillones == "")
+		return strMiles;
+	 
+	  return strMillones + " " + strMiles;
+	 
+	  //return Seccion(num, divisor, "UN MILLON", "MILLONES") + " " + Miles(resto);
+	}//Millones()
+	 
+	function NumeroALetras(num,centavos){
+	  var data = {
+		numero: num,
+		enteros: Math.floor(num),
+		centavos: (((Math.round(num * 100)) - (Math.floor(num) * 100))),
+		letrasCentavos: "",
+	  };
+	  if(centavos == undefined || centavos==false) {
+		data.letrasMonedaPlural="";
+		data.letrasMonedaSingular="";
+	  }else{
+		data.letrasMonedaPlural="";
+		data.letrasMonedaSingular="";
+	  }
+	 
+	  if (data.centavos > 0)
+		data.letrasCentavos = "CON " + NumeroALetras(data.centavos,true);
+	 
+	  if(data.enteros == 0)
+		return "CERO " + data.letrasMonedaPlural + " " + data.letrasCentavos;
+	  if (data.enteros == 1)
+		return Millones(data.enteros) + " " + data.letrasMonedaSingular + " " + data.letrasCentavos;
+	  else
+		return Millones(data.enteros) + " " + data.letrasMonedaPlural + " " + data.letrasCentavos;
+	}//NumeroALetras()
+</script>

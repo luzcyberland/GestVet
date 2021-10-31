@@ -22,6 +22,7 @@
           <th data-sortable="true" data-field="cliente">Cliente</th>
           <th data-sortable="true" data-field="total">Total</th>
           <th data-sortable="true" data-field="estado">Estado</th>
+          <th data-sortable="true" data-field="nro_factura">Factura N°</th>
           <th class="all">Acciones</th>
         </tr>
       </thead>
@@ -32,13 +33,14 @@
           <td>{{ factura.cliente }}</td>
           <td>{{ factura.total }}</td>
           <td>{{ factura.estado_factura }}</td>
+          <td>{{ factura.nro_factura }}</td>
           <td>
-            {% if factura.estado_factura == 'Pendiente' %}
+            
             <a href="{% url 'facturacion:editarFactura' factura.id_factura %}" class="btn btn-warning btn-circle"><i class="far fa-edit"></i></a>
             <a href="{% url 'facturacion:eliminarFactura' factura.id_factura %}" class="btn btn-danger btn-circle" target="popup" ><i class="fas fa-trash"></i></a>
-            {% else %}
+            
             <a href="{% url 'facturacion:imprimirFactura' factura.id_factura %}" class="btn btn-success" target="_factura">Imprimir</a>
-            {% endif %}
+           
           </td>
         </tr>
         {% endfor %}

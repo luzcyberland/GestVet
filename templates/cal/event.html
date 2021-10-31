@@ -11,6 +11,9 @@ Event
   </div>
 <div class="card-body">
   <div class="clearfix">
+    {%if event%}    
+    <a href="{% url 'cal:delete_event' event.id %}">Eliminar</a>
+    {%endif%}
     <a class="btn btn-info left" href="{% url 'cal:calendar' %}"> Cancelar </a>
   </div>
 {% if form.errors %} 
@@ -33,6 +36,7 @@ Event
   <table class="form form-table">
     {{ form }}
     <tr><td colspan="2"><button type="submit" class="btn btn-info "> Guardar</button></td></tr>
+    
   </table>
 </form>
 </div>

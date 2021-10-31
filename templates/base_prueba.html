@@ -60,6 +60,7 @@
             </div>
 
             <!-- Nav Item - Administrador-->
+            {% if user.id_rol_id == 1 %}
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -74,7 +75,8 @@
                     </div>
                 </div>
             </li>
-
+            {% endif %}
+            {% if user.id_rol_id != 3 and user.id_rol_id != 4  %}
             <!-- Nav Item - Inventario -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -103,6 +105,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="{% url 'facturacion:listartimbrados'%}">Timbrados</a>
                         <a class="collapse-item" href="{% url 'facturacion:listarFacturas'%}">Facturacion</a>
                         <a class="collapse-item" href="{% url 'pagos:listarPagos'%}">Pagos recibidos</a>
                     </div>
@@ -124,6 +127,8 @@
                 </div>
             </li>
             <!-- Nav Item - Citas -->
+            {% endif %}
+            
             <li class="nav-item" >
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3"
                     aria-expanded="true" aria-controls="collapseUtilities3" >
@@ -138,7 +143,7 @@
                     </div>
                 </div>
             </li>
-
+            {% if user.id_rol_id != 3  and user.id_rol_id != 4 %}
             <li class="nav-item" >
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities4"
                     aria-expanded="true" aria-controls="collapseUtilities4" >
@@ -169,6 +174,7 @@
                     </div>
                 </div>
             </li>
+            {% endif %}
             <!-- Divider 
             <hr class="sidebar-divider">
 

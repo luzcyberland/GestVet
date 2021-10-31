@@ -5,11 +5,46 @@ from django.dispatch import receiver
 from django.db.models import Sum
 from Clientes.models import Cliente
 from Inventario.models import ProductoServicio
+from datetime import datetime, date
 
-# Create your models here.
+
+class Timbrado(models.Model):
+    ACT='Activo'
+    INA='Inactivo'
+    ESTADO_TIMBRADO = [(ACT,'Activo'), (INA,'Inactivo')]
+    id_timbrado = models.AutoField(primary_key=True)
+    codigo_timbrado = models.CharField(max_length = 10, blank = False, verbose_name = 'Nro. Timbrado:')
+    establecimiento = models.CharField(max_length=3, blank =True)
+    punto_de_emision = models.CharField(max_length=3, blank =True)
+    numero_inicio = models.IntegerField(default = 0, blank = False, verbose_name = 'Nro. Inicio:')
+    numero_fin = models.IntegerField(default = 0, blank = False, verbose_name = 'Nro. Fin')
+    numero_actual = models.IntegerField(default = 1, blank = False, verbose_name = 'Nro. Actual')
+    fecha_vencimiento = models.DateField(blank = False,verbose_name ='Fecha de Vencimiento:')
+    estado=models.CharField(max_length=10, choices=ESTADO_TIMBRADO, default=ACT)
+    ruc = models.CharField(max_length = 10, default='0',verbose_name='Ruc')
+
+    def clean(self):
+        if self.fecha_vencimiento <= date.today():
+            self.estado='Inactivo'
+        else:
+            if self.numero_inicio >= self.numero_actual:
+                self.numero_actual = self.numero_inicio
+            else:
+                pass
+
+
+    def __str__(self):
+        return '{} {}'.format(self.codigo_timbrado,self.ruc)
+
+######################################################################
+#                        modelo para la factura                      #
+#####################################################################
+
 class Factura(models.Model):
     id_factura = models.AutoField(primary_key=True)
+    timbrado = models.ForeignKey(Timbrado, on_delete=models.CASCADE, null = True, blank =True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    nro_factura = models.CharField(max_length = 14, null=True, blank = True)
     fecha = models.DateTimeField(auto_now_add=True)
     subTotal = models.FloatField(default=0)
     descuento = models.FloatField(default=0)
@@ -22,6 +57,7 @@ class Factura(models.Model):
     CAN = 'Cancelado'
     ESTADOS_FACTURA = [(PEN, 'Pendiente'), (PAG, 'Pagado'), (CAN,'Cancelado')]
     estado_factura = models.CharField(max_length=20, choices=ESTADOS_FACTURA, default=PEN)
+    ruc = models.CharField(max_length = 10, default='0',verbose_name='Ruc')
 
     def __str__(self):
         return '{}'.format(self.id_factura)
@@ -116,4 +152,24 @@ def guardarDetalleFactura(sender, instance, **kwargs):
         cantidad = float(producto.existencia) - float(instance.cantidad)
         producto.existencia = cantidad
         producto.save()
+
+@receiver(post_save, sender=Factura)
+def nro_fac_get(sender,instance,**kwargs):
+    factura_id = instance.id_factura
+
+    tim = Timbrado.objects.get(estado = 'Activo')
+        
+    factura = Factura.objects.get(pk=factura_id)
+
+    if factura.nro_factura == None:
+        if tim:
+            if tim.numero_actual+1 <= tim.numero_fin:
+                factura.timbrado = tim
+                factura.ruc = tim.ruc
+                factura.nro_factura=tim.establecimiento+'-'+tim.punto_de_emision+'-'+str(tim.numero_actual).zfill(6)
+                tim.numero_actual = tim.numero_actual+1
+                tim.save()
+                factura.save()
+            
+
 

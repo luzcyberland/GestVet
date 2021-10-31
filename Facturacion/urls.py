@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import  listarFacturas, verProductos,  nuevaFactura,  borrarDetalleFactura, eliminar_factura
+from .views import  listarFacturas, verProductos,  nuevaFactura,  borrarDetalleFactura, eliminar_factura, add_timbrado, TimbradosListView, TimbradoUpdate, eliminar_timbrado
 from django.contrib.auth.decorators import login_required
 from .reportes import imprimirFactura
 
@@ -12,4 +12,8 @@ urlpatterns = [
     path('facturas/borrarDetalleFactura/<int:id>', borrarDetalleFactura, name="borrarDetalleFactura"),
     path('facturas/eliminarFactura/<int:id_factura>/',login_required(eliminar_factura), name='eliminarFactura'),
     path('facturas/imprimirFactura/<int:id>', imprimirFactura, name="imprimirFactura"),
+    path('facturas/crear_timbrado/',login_required(add_timbrado),name='creartimbrado'),
+    path('facturas/listar_timbrados/',login_required(TimbradosListView.as_view()), name = 'listartimbrados'),
+    path('facturas/modificar_timbrado/<pk>/',login_required(TimbradoUpdate.as_view()),name='modificartimbrado'),
+    path('facturas/eliminar_timbrado/<int:id_timbrado>',login_required(eliminar_timbrado),name='eliminartimbrado')
 ]
