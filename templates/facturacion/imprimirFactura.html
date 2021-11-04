@@ -7,15 +7,17 @@
 		
 <!------ Include the above in your HEAD tag ---------->
 <body onload="window.print()">
+	<title>Factura de Ventas</title>
 		<header  style="text-align:center">
 			<h1>Factura de Ventas</h1>
 			<img alt="it" src={% static 'img/Gestvet.png'%} width="160" height="150">
 			<address>			
-				<p style="text-align:center"> de Gladys Concepción Sosa de Acosta </p><br>
+				<strong><p style="text-align:center"> de Gladys Concepción Sosa de Acosta </p><br>
 				<p style="text-align:center">  Productos Veterinarios - Servicios </p><br>
 				<p style="text-align:center">  Anexo. Clinica Veterinaria </p><br>
 				<p style="text-align:left">  San Lorenzo c/ Azara 1225 (021) 584 820 </p><br>
 				<p style="text-align:center"> San Lorenzo - Paraguay </p>							
+				<p style="text-align:center"> RUC: {{factura.ruc}} </p>	<strong>						
 			</address>
 			
 		</header>

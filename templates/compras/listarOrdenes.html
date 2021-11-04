@@ -1,0 +1,50 @@
+{% extends 'base_prueba.html' %}
+{% block title %}Lista de Pedidos{% endblock %}
+{% block content %}
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary">Listado de Pedidos</h6>
+  </div>
+  <div class="card-body">
+    {% if not ordenes %}
+    <div class="alert alert-info">No hay pedidos</div>
+    <div class="buttons-toolbar">
+      <a class="btn btn-success" href="{% url 'compras:nuevaOrden' %}"><i class="far fa-calendar-plus"></i> Nuevo</a>
+    </div>
+    {% else %}
+    <div class="buttons-toolbar">
+      <a class="btn btn-success" href="{% url 'compras:nuevaOrden' %}"><i class="far fa-calendar-plus"></i> Nuevo</a>
+    </div>
+    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-toggle="true" data-show-fullscreen="true" data-toolbar=".buttons-toolbar" data-locale="es-NI">
+      <thead>
+        <tr>
+          <th data-sortable="true" data-field="ïd">Nr.</th>
+          <th data-sortable="true" data-field="cliente">Proveedor</th>
+          <th data-sortable="true" data-field="total">Total</th>
+          <th data-sortable="true" data-field="estado_orden">Estado</th>
+          <th class="all">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for orden in ordenes %}
+        <tr>
+          <td>{{ orden.id_orden_compra }}</td>
+          <td>{{ orden.proveedor }}</td>
+          <td>{{ orden.total }}</td>
+          <td>{{ orden.estado_orden }}</td>
+          <td>
+            {% if orden.estado_orden == 'Pendiente'%}
+            <a href="{% url 'compras:editarOrden' orden.id_orden_compra %}" class="btn btn-warning btn-circle"><i class="far fa-edit"></i></a>
+            <a href="{% url 'compras:eliminarOrden' orden.id_orden_compra %}" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+ {% endif %}
+</div>
+{% endblock %}
+{% block javascript %}
+{% endblock %}

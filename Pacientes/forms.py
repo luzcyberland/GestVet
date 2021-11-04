@@ -28,15 +28,15 @@ class PacienteForm(forms.ModelForm):
             'id_cliente' : 'Dueño'
         }
         
-        widgets = {
+       # widgets = {
            # 'id_paciente' : forms.NumberInput,
             #'nombre_paciente' : forms.TextInput(attrs={'class':'form-control'}),
-            'fecha_nacimiento': DateInput(attrs={'type': 'datetime-local'}, format=r'%Y-%m-%d')
+            #'fecha_nacimiento': DateInput(attrs={'type': 'datetime-local'}, format=r'%Y-%m-%d')
             #'sexo_paciente' : forms.TextInput(attrs={'class':'form-control'}),
             #'raza_paciente' : forms.TextInput(attrs={'class':'form-control'}),
             #'especie_paciente' : forms.TextInput(attrs={'class':'form-control'}),
             #'id_cliente' : forms.TextInput(attrs={'class':'form-control'})
-        }
+        #}
         
 class VacunaForm(forms.ModelForm):
     class Meta:

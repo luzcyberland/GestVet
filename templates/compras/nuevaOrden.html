@@ -1,12 +1,12 @@
 {% extends 'base_prueba.html' %}
-{% block title %}Nueva Factura{% endblock %}
+{% block title %}Nueva Orden{% endblock %}
 {% block content %}
 <form method="post" id="formFactura">
 
   {% csrf_token %}
   <div class="card shadow mb-4">
     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-      <a href="{% url 'compras:listarFacturas' %}" class="btn btn-info">Volver</a>
+      <a href="{% url 'compras:listarOrdenes' %}" class="btn btn-info">Volver</a>
     </div>
     <div class="card-body">
       <div class="content">   
@@ -15,10 +15,10 @@
             <div class="content">
               <div class="row">
                 <div class="col-lg-1">Nr.</div>
-                <div class="col-lg-4"><input type="text"  class="form-control form-control-user" value="{{ factura.id_factura_compra }}" readonly></div>
+                <div class="col-lg-4"><input type="text"  class="form-control form-control-user" value="{{ orden.id_orden_compra }}" readonly></div>
                 <div class="col-lg-2">Proveedor:</div>
                 <div class="col-lg-5 form-group">
-                  <select name="proveedor" id="proveedorFactura" class="form-control" required>
+                  <select name="proveedor" id="proveedorOrden" class="form-control" required>
                     <option value="">Seleccione el proveedor</option>
                     {% for proveedor in proveedores %}
                     <option value="{{ proveedor.id_proveedor }}">RUC: {{ proveedor.ruc_proveedor }} || {{ proveedor.nombre_proveedor }}</option>
@@ -31,15 +31,7 @@
                   <div class="row">
                     <div class="col-lg-2">Fecha:</div>
                     <div class="col-lg-8 form-group">
-                      <input type="text" name="fecha" id="fecha" class="form-control form-control-user" value="{{ factura.fecha|date:'Y-m-d' }}" readonly>
-                    </div>
-                    <div class="col-lg-3">Fecha de factura:</div>
-                    <div class="col-lg-8 form-group">
-                      <input type="date" name="fecha_factura" id="fecha_factura" required>
-                    </div>
-                    <div class="col-lg-4">Número de factura:</div>
-                    <div class="col-lg-8 form-group">
-                      <input type="text" name="numero_factura" id="numero_factura" required>
+                      <input type="text" name="fecha" id="fecha" class="form-control form-control-user" value="{{ orden.fecha|date:'Y-m-d' }}" readonly>
                     </div>
                   </div>
                 </div>
@@ -84,7 +76,7 @@
             <div class="row">
               <div class="col-lg-1">Cant:</div>
               <div class="col-lg-3">
-                <input type="number" step="any" name="cantidad" id="cantidad" class="form-control" placeholder="Cantidad" >
+                <input type="number" step="any" name="cantidad" id="cantidad" class="form-control" placeholder="Cantidad" required>
               </div>
               <div class="col-lg-4">
                 <input type="text" name="precio" id="precio" class="form-control" placeholder="Precio" readonly>
@@ -101,7 +93,7 @@
             <div class="row p-1">
               <div class="col-lg-9 text-right">Subtotal:</div>
               <div class="col-lg-3">
-                <input type="number" name="subTotalDetalle" id="subtotalDetalle" class="form-control" placeholder="Subtotal" value="0.00" disabled>
+                <input type="number" name="subTotalDetalle" id="subTotalDetalle" class="form-control" placeholder="Subtotal" value="0.00" disabled>
               </div>
             </div>
             <div class="row p-1">
@@ -128,11 +120,11 @@
                   <th data-field="monto_iva_det">10%</th>
                   <th data-field="descuentoDetalle">Descuento</th>
                   <th data-field="totalDetalle">Total</th>
-                  
+                  <th class="all">Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                {% for item in detalleFactura %}
+                {% for item in detalleOrden %}
                 <tr>
                   <td>{{ item.id }}</td>
                   <td>{{ item.producto }}</td>
@@ -144,7 +136,9 @@
                   <td>{{ item.monto_iva_det }}</td>
                   <td>{{ item.descuentoDetalle }}</td>
                   <td>{{ item.totalDetalle }}</td>
-                  
+                  <td>
+                    <button type="button" class="btn btn-warning btn-circle" onclick="borrarDetalle({{ item.id }})"><i class="fas fa-history"></i></button>
+                  </td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -182,21 +176,12 @@
     subTotal = cantidad * precio;
     total = subTotal - descuento;
 
-    if (porc_iva == 5) {
-    //  document.getElementById("demo").innerHTML = 5 + 6;
-      monto_gravado_det = $('#monto_gravado_det').val();
-      monto_gravado_det = monto_gravado_det === '' ? 0 : +monto_gravado_det;
-      monto_gravado_det = monto_gravado_det < 0 ? 0 : monto_gravado_det;
-      monto_gravado_det = subTotal;
-      monto_iva_det = 0;
-      monto_exento_det = 0;
-    }
 
     $('#cantidad').val(cantidad);
     $('#precio').val(precio);
     $('#porc_iva').val(porc_iva);
     $('#descuentoDetalle').val(descuento);
-    $('#subtotalDetalle').val(subTotal);
+    $('#subTotalDetalle').val(subTotal);
     $('#monto_gravado_det').val(monto_gravado_det);
     $('#monto_iva_det').val(monto_iva_det);
     $('#monto_exento_det').val(monto_exento_det);
@@ -266,7 +251,7 @@
         return false;
       }
 
-      abrirModal("{% url 'facturacion:productosFactura' %}");
+      abrirModal("{% url 'compras:productosFactura' %}");
     });
 
     $('#codigo').keypress(function(e) {
@@ -275,20 +260,19 @@
         buscarProducto();
       }
     });
-
+    
     $('#cantidad, #precio, #descuentoDetalle, #porc_iva, #monto_gravado_det').change(function() {
       calcularDetalle();
     });
 
-    $('#idFactura').val("{{ factura.id }}");
-    $('#proveedorFactura').val("{{ factura.proveedor.id }}").change();
-    $('#fecha').val("{{ factura.fecha|date:'Y-m-d' }}");
-    $('#fecha_factura').val("{{ factura.fecha_factura|date:'Y-m-d' }}");
-    $('#numero_factura').val("{{ factura.numero_factura }}");
-    $('#subTotal').val({{ facturacompra.subTotal }});
-    $('#descuento').val({{ facturacompra.descuento }});
-    $('#total').val({{ facturacompra.total }});
-    
+    $('#idOrden').val("{{ orden.id }}");
+    $('#proveedorOrden').val("{{ orden.proveedor.id }}").change();
+    $('#fecha').val("{{ orden.fecha|date:'Y-m-d' }}");
+    $('#subTotal').val({{ orden.subTotal }});
+    $('#descuento').val({{ orden.descuento }});
+    $('#total').val({{ orden.total }});
+
+
   });
 
   function borrarDetalle(id) {
@@ -298,7 +282,7 @@
       type: 'red',
       title: 'Eliminar item de factura',
       /*title: 'Confirmación requerida',*/
-      content: 'url:/compras/compras/borrarDetalleFactura/' + id,
+      content: 'url:/compras/compras/borrarDetalleOrden/' + id,
       /*onContentReady: function() {
         this.$content.find('#usuario').val('{{ user.username }}');
         this.$content.find('#usuario').select();
@@ -333,7 +317,7 @@
               headers: {'X-CSRFToken': token},
               type: 'POST',
               //data: datos,
-              url: '/facturacion/facturas/borrarDetalleFactura/' + id,
+              url: 'url:/compras/compras/borrarDetalleOrden/' + id,
               success: function(res) {
                 if (res === 'Ok') {
                   location.reload(true)

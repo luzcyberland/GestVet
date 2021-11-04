@@ -15,7 +15,7 @@ from django.utils.decorators import method_decorator
 #                 vistas para el paciente                            # 
 #####################################################################
 
-@rol_required('Recepcion')
+@rol_required('Recepcion','Doctor')
 def add_paciente(request):
     form = ""
     if request.method == 'POST':
@@ -28,7 +28,7 @@ def add_paciente(request):
     return render(request,'pacientes/crear_paciente.html',{'form':form})
 
 
-@method_decorator(rol_required('Recepcion'), name='dispatch')
+@method_decorator(rol_required('Recepcion','Doctor'), name='dispatch')
 class PacientesListView(generic.ListView):
     model = Paciente
     context_object_name = 'pacientes_list' 
@@ -37,14 +37,14 @@ class PacientesListView(generic.ListView):
     def get_queryset(self):
         return Paciente.objects.all()
 
-@method_decorator(rol_required('Recepcion'), name='dispatch')
+@method_decorator(rol_required('Recepcion','Doctor'), name='dispatch')
 class PacienteUpdate(UpdateView):
     model = Paciente
     fields = ['id_paciente', 'nombre_paciente', 'fecha_nacimiento', 'sexo_paciente', 'raza_paciente', 'especie_paciente','id_cliente']
     template_name = 'pacientes/modificar_paciente.html'
     success_url=reverse_lazy('listarpacientes')
 
-@rol_required('Recepcion')
+@rol_required('Recepcion','Doctor')
 def eliminar_paciente(request, id_paciente):
     req = Paciente.objects.get(id_paciente=id_paciente)
     req.delete()
@@ -54,7 +54,7 @@ def eliminar_paciente(request, id_paciente):
 #                 vistas para la vacuna                              #
 #####################################################################
 
-@rol_required('Recepcion')
+@rol_required('Recepcion', 'Doctor')
 def add_vacuna(request):
     form = ""
     if request.method == 'POST':
@@ -66,7 +66,7 @@ def add_vacuna(request):
         form=VacunaForm
     return render(request,'vacunas/crear_vacuna.html',{'form':form})
 
-@method_decorator(rol_required('Recepcion'), name='dispatch')
+@method_decorator(rol_required('Recepcion','Doctor'), name='dispatch')
 class VacunaUpdate(UpdateView):
     model = Vacunacion
     fields = ['id_vacuna',
@@ -78,13 +78,13 @@ class VacunaUpdate(UpdateView):
     template_name = 'vacunas/modificar_vacuna.html'
     success_url=reverse_lazy('listar_vacunas')
 
-@rol_required('Recepcion')
+@rol_required('Recepcion','Doctor')
 def eliminar_vacuna(request, id_vacuna):
     req = Vacunacion.objects.get(id_vacuna=id_vacuna)
     req.delete()
     return redirect('/listar_vacunas/')     
 
-@method_decorator(rol_required('Recepcion'), name='dispatch')
+@method_decorator(rol_required('Recepcion','Doctor'), name='dispatch')
 class VacunasListView(generic.ListView):
     model = Vacunacion
     context_object_name = 'vacunas_list' 
@@ -93,7 +93,7 @@ class VacunasListView(generic.ListView):
     def get_queryset(self):
         return Vacunacion.objects.all()        
 
-@method_decorator(rol_required('Recepcion'), name='dispatch')
+@method_decorator(rol_required('Recepcion','Doctor'), name='dispatch')
 class VacunasPacientesList(generic.ListView):
     model = Vacunacion
     context_object_name = 'vacunas_list' 
@@ -111,7 +111,7 @@ class VacunasPacientesList(generic.ListView):
 ######################################################################
 #                 vistas para el historial                          # 
 #####################################################################
-@rol_required('Recepcion')
+@rol_required('Recepcion', 'Doctor')
 def add_historial(request):
     form = ""
     if request.method == 'POST':
@@ -123,7 +123,7 @@ def add_historial(request):
         form=HistorialForm
     return render(request,'historial/crear_historial.html',{'form':form})
 
-@method_decorator(rol_required('Recepcion'), name='dispatch')
+@method_decorator(rol_required('Recepcion','Doctor'), name='dispatch')
 class HistorialUpdate(UpdateView):
     model = Historial
     fields = ['id_historial',
@@ -133,13 +133,13 @@ class HistorialUpdate(UpdateView):
     template_name = 'historial/modificar_historial.html'
     success_url=reverse_lazy('listar_historial')
 
-@rol_required('Recepcion')
+@rol_required('Recepcion', 'Doctor')
 def eliminar_historial(request, id_historial):
     req = Historial.objects.get(id_historial=id_historial)
     req.delete()
     return redirect('/listar_historial/')
 
-@method_decorator(rol_required('Recepcion'), name='dispatch')
+@method_decorator(rol_required('Recepcion','Doctor'), name='dispatch')
 class HistorialListView(generic.ListView):
     model = Historial
     context_object_name = 'historial_list' 
@@ -148,7 +148,7 @@ class HistorialListView(generic.ListView):
     def get_queryset(self):
         return Historial.objects.all()        
 
-@method_decorator(rol_required('Recepcion'), name='dispatch')
+@method_decorator(rol_required('Recepcion','Doctor'), name='dispatch')
 class HistorialPacientesList(generic.ListView):
     model = Historial
     context_object_name = 'historial_list' 
