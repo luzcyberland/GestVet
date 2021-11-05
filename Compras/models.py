@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 from django.db.models import Sum
 from Proveedores.models import Proveedor
@@ -220,10 +220,4 @@ def guardarDetalleOrdenCompra(sender, instance, **kwargs):
         orden.monto_iva = monto_iva
         orden.save()
 
-@receiver(post_save, sender=FacturaCompra)
-def guardarEstadoOrden(sender, instance, **kwargs):
-    idOrden = instance.id_ref_compra
-    orden = OrdenCompra.objects.get(pk=idOrden)
-    if orden:
-        orden.estado_orden = 'Facturado'
-        orden.save()
+

@@ -1,0 +1,71 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="col-xl-12 col-md-12 mb-12">
+        <div class="card border-left-warning shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Buscar factura</div>
+                <div class="dropdown-divider"></div>
+                <div class="row">
+                  <table id="tabla" data-pagination="true" data-search="true" data-show-columns="true" data-show-fullscreen="true" data-locale="es-NI">
+                    <thead>
+                      <tr>
+                        <th data-sortable="true" data-field="ïd">Id</th>
+                        <th data-field="cliente">Proveedor</th>
+                        <th data-field="total">Monto total</th>
+                        <th class="all">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for factura in facturas %}
+                      <tr>
+                        <td>{{ factura.id_factura_compra }}</td>
+                        <td>{{ factura.proveedor }}</td>
+                        <td>{{ factura.total }}</td>
+                        <td>
+                          {% if factura.estado_factura == 'Pendiente' %}
+                          <button class="btn btn-warning btn-circle" id="btnSelec" onclick="seleccionarFactura({{ factura.id_factura_compra }},'{{ factura.proveedor }}', {{ factura.total }})"><i class="far fa-hand-pointer"></i></button>
+                          {% endif %}
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="row">
+                  <div class="col">
+                    <button type="button" class="btn btn-success" id="btnCancelar">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto"><i class="far fa-calendar-plus fa-2x text-gray-300"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% block javascript %}
+  <script>
+    $(function() {
+      $('#btnCancelar').click(function(e) {
+        e.preventDefault();
+        cerrarModal();
+      });
+    });
+  
+    $('#tabla').bootstrapTable();
+  
+    function seleccionarFactura(id, cliente, total) {
+      $('#codigo').val(id);
+      $('#cliente').val(cliente);
+      $('#precio').val(total);
+      $('#btnCancelar').click();
+      $('#codigo').select();
+      $('#codigo').focus();
+    }
+  </script>
+  {% endblock %}
+  

@@ -63,11 +63,11 @@ class PagosRealizados(models.Model):
 
         fac = Factura.objects.filter(id_factura=id_pago_factura).values_list() #IVA del producto
         print(fac[9]'''
-        super(Pagos, self).save()
+        super(PagosRealizados, self).save()
 
 @receiver(post_save, sender=PagosRealizados)
 def guardarEstadoFacturaCompra(sender, instance, **kwargs):
-    idFactura = instance.factura.id_factura
+    idFactura = instance.factura.id_factura_compra
     factura = FacturaCompra.objects.get(pk=idFactura)
     if factura:
         factura.estado_factura = 'Pagado'

@@ -285,9 +285,9 @@
     $('#fecha').val("{{ factura.fecha|date:'Y-m-d' }}");
     $('#fecha_factura').val("{{ factura.fecha_factura|date:'Y-m-d' }}");
     $('#numero_factura').val("{{ factura.numero_factura }}");
-    $('#subTotal').val({{ facturacompra.subTotal }});
-    $('#descuento').val({{ facturacompra.descuento }});
-    $('#total').val({{ facturacompra.total }});
+    $('#subTotal').val({{ factura.subTotal }});
+    $('#descuento').val({{ factura.descuento }});
+    $('#total').val({{ factura.total }});
     
   });
 
