@@ -33,7 +33,7 @@
         <tr>
         <th scope="row">{{paciente.id_paciente}}</th>
         <td> {{paciente.nombre_paciente}} </td>
-        <td>{{paciente.fecha_nacimiento}}</td>
+        <td>{{paciente.fecha_nacimiento|date:'d/m/Y'}}</td>
         <td>{{paciente.especie_paciente}}</td>
         <td>{{paciente.id_cliente}}</td>
         <td><a class="btn btn-success btn-icon-split" href="{% url 'modificarpaciente' paciente.id_paciente %}">
@@ -54,12 +54,14 @@
             </span>
             <span class="text">Vacunas</span>
         </a></td>
+        <td><a href="{% url 'imprimirLibreta' paciente.id_paciente %}" class="btn btn-warning btn-circle" target="_factura"><i class="fas fa-print"></i></a></td>
         <td><a class="btn btn-info btn-icon-split" href="{% url 'listar_historial_paciente' paciente.id_paciente %}">
           <span class="icon text-white-50">
-            <i class="fa fa-file-text"></i>
+            <i class="fa fa-medkit"></i>
             </span>
             <span class="text">Historial</span>
         </a></td>
+        <td><a href="" class="btn btn-info btn-circle" target="_factura"><i class="fas fa-print"></i></a></td>
       </tr>
         {% endfor %}
       {% else %}

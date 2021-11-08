@@ -165,5 +165,4 @@ class HistorialPacientesList(generic.ListView):
         return context 
 
 
-
     
