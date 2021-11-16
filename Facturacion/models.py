@@ -6,6 +6,8 @@ from django.db.models import Sum
 from Clientes.models import Cliente
 from Inventario.models import ProductoServicio
 from datetime import datetime, date
+from django.forms import model_to_dict
+import pytz
 
 
 class Timbrado(models.Model):
@@ -45,7 +47,7 @@ class Factura(models.Model):
     timbrado = models.ForeignKey(Timbrado, on_delete=models.CASCADE, null = True, blank =True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     nro_factura = models.CharField(max_length = 14, null=True, blank = True)
-    fecha = models.DateTimeField(auto_now_add=True)
+    fecha = models.DateField(auto_now_add=True)
     subTotal = models.FloatField(default=0)
     descuento = models.FloatField(default=0)
     total = models.FloatField(default=0)
@@ -61,12 +63,23 @@ class Factura(models.Model):
 
     def __str__(self):
         return '{}'.format(self.id_factura)
+    
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['cliente'] = self.cliente.toJSON()
+        item['subTotal'] = format(self.subTotal, '.2f')
+        item['monto_iva'] = format(self.monto_iva, '.2f')
+        item['total'] = format(self.total, '.2f')
+        item['fecha'] = self.fecha.strftime(r'%Y-%m-%d')
+        #item['det'] = [i.toJSON() for i in self.detallefactura_set.all()]
+        return item
 
     def save(self):
         
         self.total = self.subTotal - self.descuento
 
         super(Factura, self).save()
+    
 
     class Meta:
         verbose_name_plural = "Facturas"

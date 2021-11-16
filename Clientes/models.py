@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms.models import model_to_dict
 
 # Create your models here.
 class Cliente(models.Model):
@@ -13,4 +14,9 @@ class Cliente(models.Model):
      
     def __str__(self):
         return self.nombre_cliente + ' ' + self.apellido_cliente 
+    
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['nombre_cliente'] = self.apellido_cliente + ' ,'+self.nombre_cliente
+        return item
      

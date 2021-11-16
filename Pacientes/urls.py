@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import path
 from django.conf.urls import url, include
 from Pacientes.views import PacientesListView, PacienteUpdate, VacunasListView, VacunaUpdate, VacunasPacientesList, HistorialListView, HistorialUpdate, HistorialPacientesList
-from .reportes import imprimirLibreta
+from .reportes import imprimirHistorial, imprimirLibreta
 
 
 urlpatterns=[
@@ -17,4 +17,5 @@ urlpatterns=[
     path('modificar_historial/<pk>/',login_required(HistorialUpdate.as_view()), name='modificar_historial'),
     path('listar_historial_paciente/<id_paciente>', login_required(HistorialPacientesList.as_view()), name='listar_historial_paciente'),
     path('imprimirLibreta/<id>', imprimirLibreta, name="imprimirLibreta"),
+    path('imprimirHistorial/<id>', imprimirHistorial, name="imprimirHistorial"),
 ]

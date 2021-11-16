@@ -8,7 +8,7 @@ from Usuarios.views import home, logoutUsuario, crear_usuario, UsuariosListView,
 from Clientes.views import add_cliente, ClientesListView, ClienteUpdate, eliminar_cliente
 from Proveedores.views import add_proveedor, ProveedoresListView, ProveedorUpdate, eliminar_proveedor
 from Pacientes.views import add_paciente, PacienteUpdate, PacientesListView, eliminar_paciente, add_vacuna, VacunaUpdate, VacunasListView, eliminar_vacuna, VacunasPacientesList, HistorialListView, HistorialUpdate, add_historial, HistorialPacientesList, eliminar_historial
-from Pacientes.reportes import imprimirLibreta
+from Pacientes.reportes import imprimirHistorial, imprimirLibreta
 
 from Inventario.views import *
 
@@ -53,6 +53,7 @@ urlpatterns = [
     path('modificar_vacunas/<pk>/',login_required(VacunaUpdate.as_view()), name='modificar_vacuna'),
     path('eliminar_vacuna/<int:id_vacuna>',login_required(eliminar_vacuna),name='eliminar_vacuna'),
     path('imprimirLibreta/<id>', imprimirLibreta, name="imprimirLibreta"),
+    path('imprimirHistorial/<id>', imprimirHistorial, name="imprimirHistorial"),
     path('listar_vacunas_paciente/<int:id_paciente>', login_required(VacunasPacientesList.as_view()), name='listar_vacunas_paciente'),
     path('listar_historial/', login_required(HistorialListView.as_view()), name='listar_historial'),
     path('modificar_historial/<pk>/',login_required(HistorialUpdate.as_view()), name='modificar_historial'),
@@ -64,5 +65,6 @@ urlpatterns = [
     path('listar_proveedores/',login_required(ProveedoresListView.as_view()),name='listarproveedores'),
     path('modificar_proveedor/<pk>',login_required(ProveedorUpdate.as_view()),name='modificarproveedor'),
     path('eliminar_proveedor/<int:id_proveedor>/',login_required(eliminar_proveedor), name='eliminarproveedor'),
-    path('compras/', include(('Compras.urls', 'compras') ,namespace='compras'))
+    path('compras/', include(('Compras.urls', 'compras') ,namespace='compras')),
+     path('reportes/', include(('Reportes.urls', 'reportes') ,namespace='reportes'))
     ]

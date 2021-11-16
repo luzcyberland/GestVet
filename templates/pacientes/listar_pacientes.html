@@ -61,7 +61,7 @@
             </span>
             <span class="text">Historial</span>
         </a></td>
-        <td><a href="" class="btn btn-info btn-circle" target="_factura"><i class="fas fa-print"></i></a></td>
+        <td><a href="{% url 'imprimirHistorial' paciente.id_paciente %}" class="btn btn-info btn-circle" target="_factura"><i class="fas fa-print"></i></a></td>
       </tr>
         {% endfor %}
       {% else %}
