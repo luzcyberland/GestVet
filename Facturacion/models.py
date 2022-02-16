@@ -36,7 +36,7 @@ class Timbrado(models.Model):
 
 
     def __str__(self):
-        return '{} {}'.format(self.codigo_timbrado,self.ruc)
+        return '{}'.format(self.codigo_timbrado)
 
 ######################################################################
 #                        modelo para la factura                      #
